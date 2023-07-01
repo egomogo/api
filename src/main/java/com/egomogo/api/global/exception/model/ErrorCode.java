@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
-    // Basic Code
+    // Not Unique to use
     NOT_FOUND,
     BAD_REQUEST,
     FORBIDDEN,
