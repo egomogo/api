@@ -5,12 +5,29 @@ import com.egomogo.api.global.exception.model.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public final class NotImplemented extends ApiException {
-
     public NotImplemented(ErrorCode errorCode, String message) {
-        super(HttpStatus.NOT_IMPLEMENTED, errorCode, message);
+        super(errorCode, message);
     }
 
     public NotImplemented(ErrorCode errorCode) {
-        super(HttpStatus.NOT_IMPLEMENTED, errorCode);
+        super(errorCode);
+    }
+
+    public NotImplemented(String message) {
+        super(message);
+    }
+
+    public NotImplemented() {
+        super();
+    }
+
+    @Override
+    public HttpStatus getHttpStatus() {
+        return HttpStatus.NOT_IMPLEMENTED;
+    }
+
+    @Override
+    protected ErrorCode getDefaultErrorCode() {
+        return ErrorCode.NOT_IMPLEMENTED;
     }
 }

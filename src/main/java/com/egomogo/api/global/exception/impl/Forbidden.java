@@ -5,12 +5,29 @@ import com.egomogo.api.global.exception.model.ErrorCode;
 import org.springframework.http.HttpStatus;
 
 public final class Forbidden extends ApiException {
-
     public Forbidden(ErrorCode errorCode, String message) {
-        super(HttpStatus.FORBIDDEN, errorCode, message);
+        super(errorCode, message);
     }
 
     public Forbidden(ErrorCode errorCode) {
-        super(HttpStatus.FORBIDDEN, errorCode);
+        super(errorCode);
+    }
+
+    public Forbidden(String message) {
+        super(message);
+    }
+
+    public Forbidden() {
+        super();
+    }
+
+    @Override
+    public HttpStatus getHttpStatus() {
+        return HttpStatus.FORBIDDEN;
+    }
+
+    @Override
+    protected ErrorCode getDefaultErrorCode() {
+        return ErrorCode.FORBIDDEN;
     }
 }
