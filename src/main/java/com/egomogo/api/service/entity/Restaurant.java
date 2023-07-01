@@ -1,4 +1,4 @@
-package com.egomogo.api.service.controller;
+package com.egomogo.api.service.entity;
 
 import com.egomogo.api.service.type.Category;
 import jakarta.persistence.*;

@@ -1,4 +1,4 @@
-package com.egomogo.api.service.controller;
+package com.egomogo.api.service.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

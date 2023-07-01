@@ -1,4 +1,7 @@
 package com.egomogo.api.service.repository;
 
-public interface RestaurantRepository extends org.springframework.data.jpa.repository.JpaRepository<com.egomogo.api.service.entity.Restaurant, java.lang.String> {
+import com.egomogo.api.service.entity.Restaurant;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RestaurantRepository extends JpaRepository<Restaurant, String> {
 }
