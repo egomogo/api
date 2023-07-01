@@ -31,9 +31,11 @@ public class Restaurant {
     @Column(nullable = false)
     private String naverShopId;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
 
+    @ElementCollection(targetClass = Category.class)
+    @CollectionTable
     @Enumerated(EnumType.STRING)
     private List<Category> categories = new ArrayList<>();
 
