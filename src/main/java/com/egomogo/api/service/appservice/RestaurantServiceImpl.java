@@ -20,7 +20,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     @Transactional
     public Long saveRestaurantsFromJson(SaveRestaurantJson.Request request) {
-        
+
         return null;
     }
 
