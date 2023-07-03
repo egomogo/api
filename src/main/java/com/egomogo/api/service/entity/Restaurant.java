@@ -35,7 +35,7 @@ public class Restaurant {
     private List<Menu> menus = new ArrayList<>();
 
     @ElementCollection(targetClass = Category.class)
-    @CollectionTable
+    @CollectionTable(name = "restaurant_categories")
     @Enumerated(EnumType.STRING)
     private List<Category> categories = new ArrayList<>();
 

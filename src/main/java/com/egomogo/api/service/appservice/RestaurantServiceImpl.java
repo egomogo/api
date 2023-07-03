@@ -17,7 +17,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Slice<IRestaurantDto> getRandomRestaurants(Long seed, String category, String userX, String userY, String distanceLimit, Pageable pageable) {
-
+        Slice<IRestaurantDto> restaurants = restaurantRepository.findRestaurantDistanceByRandomAndDistanceLimit(Double.parseDouble(userX), Double.parseDouble(userY), Integer.parseInt(distanceLimit), seed);
+        System.out.println(restaurants);
         return null;
     }
 }

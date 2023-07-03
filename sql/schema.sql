@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `menu`;
 DROP TABLE IF EXISTS `restaurant`;
-DROP TABLE IF EXISTS `Restaurant_categories`;
+DROP TABLE IF EXISTS `restaurant_categories`;
 CREATE TABLE `restaurant` (
     id varchar(40) not null primary key ,
     name varchar(255) not null ,
@@ -16,7 +16,7 @@ CREATE TABLE `menu` (
     restaurant_id varchar(40) not null ,
     FOREIGN KEY (restaurant_id) REFERENCES `restaurant` (id)
 );
-CREATE TABLE `Restaurant_categories` (
+CREATE TABLE `restaurant_categories` (
     restaurant_id varchar(40) not null ,
     categories ENUM('KOREAN_FOOD', 'WESTERN_FOOD', 'ASIAN_FOOD', 'FLOUR_BASED_FOOD', 'MEAT', 'CHINESE_FOOD', 'CAFE', 'DESSERT', 'CONVENIENCE_FOOD', 'JAPANESE_FOOD') not null ,
     FOREIGN KEY (restaurant_id) REFERENCES `restaurant` (id)
