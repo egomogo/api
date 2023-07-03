@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS `menu`;
 DROP TABLE IF EXISTS `restaurant`;
-DROP TABLE IF EXISTS `restaurant_categories`;
-
+DROP TABLE IF EXISTS `Restaurant_categories`;
 CREATE TABLE `restaurant` (
     id varchar(40) not null primary key ,
     name varchar(255) not null ,
@@ -10,7 +9,6 @@ CREATE TABLE `restaurant` (
     y float(53) default 0.0 not null ,
     naver_shop_id varchar(50) not null
 );
-
 CREATE TABLE `menu` (
     id varchar(40) not null primary key ,
     name varchar(255) not null ,
@@ -18,9 +16,8 @@ CREATE TABLE `menu` (
     restaurant_id varchar(40) not null ,
     FOREIGN KEY (restaurant_id) REFERENCES `restaurant` (id)
 );
-
-CREATE TABLE `restaurant_categories` (
+CREATE TABLE `Restaurant_categories` (
     restaurant_id varchar(40) not null ,
-    categories varchar(255) CHECK (categories IN ('KOREAN_FOOD', 'WESTERN_FOOD', 'ASIAN_FOOD', 'FLOUR_BASED_FOOD', 'MEAT', 'CHINESE_FOOD', 'CAFE', 'DESSERT', 'CONVENIENCE_FOOD', 'JAPANESE_FOOD')),
+    categories ENUM('KOREAN_FOOD', 'WESTERN_FOOD', 'ASIAN_FOOD', 'FLOUR_BASED_FOOD', 'MEAT', 'CHINESE_FOOD', 'CAFE', 'DESSERT', 'CONVENIENCE_FOOD', 'JAPANESE_FOOD') not null ,
     FOREIGN KEY (restaurant_id) REFERENCES `restaurant` (id)
 );
