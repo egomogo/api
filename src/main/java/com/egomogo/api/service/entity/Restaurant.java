@@ -1,5 +1,6 @@
 package com.egomogo.api.service.entity;
 
+import com.egomogo.api.global.util.Generator;
 import com.egomogo.api.service.type.Category;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -8,27 +9,26 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "restaurant")
 @Getter
-@Entity
+@Entity(name = "restaurant")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @Column(name = "id", nullable = false)
+    private String id = Generator.generateUUID();
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Embedded
     private Coordinate coordinate;
 
-    @Column(nullable = false)
+    @Column(name = "naver_shop_id", nullable = false)
     private String naverShopId;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
