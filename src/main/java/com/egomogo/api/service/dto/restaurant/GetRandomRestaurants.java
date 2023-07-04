@@ -33,8 +33,8 @@ public class GetRandomRestaurants {
 
             private static RestaurantResponse fromDto(IRestaurantDistanceDto dto) {
                 return RestaurantResponse.builder()
-                        .id(dto.getRestaurant_id())
-                        .name(dto.getRestaurant_name())
+                        .id(dto.getId())
+                        .name(dto.getName())
                         .address(dto.getAddress())
                         .menus(CollectionUtils.isEmpty(dto.getMenus()) ?
                                 null : dto.getMenus().stream().map(RestaurantMenuResponse::fromDto).toList())

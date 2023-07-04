@@ -1,7 +1,7 @@
 package com.egomogo.api.service.appservice;
 
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
-import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
+import com.egomogo.api.service.dto.restaurant.CoordinateDto;
 import com.egomogo.api.global.util.ValidUtils;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.api.service.entity.Restaurant;

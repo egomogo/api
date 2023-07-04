@@ -19,10 +19,10 @@ import java.util.List;
 public class Restaurant extends BaseAuditEntity {
 
     @Id
-    @Column(name = "restaurant_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "restaurant_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "address", nullable = false)

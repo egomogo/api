@@ -9,6 +9,11 @@ import java.util.List;
 
 public interface RestaurantService {
 
+    /**
+     * Json 형식의 요청을 통해 매장 정보를 저장하는 메소드.
+     * @param request 매장 정보를 저장할 요청 DTO 클래스
+     * @return 저장된 매장 정보 수
+     */
     Integer saveRestaurantsFromJson(List<SaveRestaurantJson.Request> request);
 
     /**
@@ -25,6 +30,6 @@ public interface RestaurantService {
      * @param pageable 페이징 요청 객체
      * @return 매장 DTO 인터페이스가 담긴 Slice 객체
      */
-    Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String category, String userX, String userY, String distanceLimit, Pageable pageable);
+    Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String category, Double userX, Double userY, Integer distanceLimit, Pageable pageable);
 
 }

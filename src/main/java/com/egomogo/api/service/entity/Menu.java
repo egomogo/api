@@ -15,10 +15,10 @@ import lombok.experimental.SuperBuilder;
 public class Menu extends BaseAuditEntity {
 
     @Id
-    @Column(name = "menu_id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false, updatable = false)
     private String id;
 
-    @Column(name = "menu_name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "price")

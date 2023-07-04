@@ -1,6 +1,6 @@
 package com.egomogo.api.global.adapter.webclient;
 
-import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
+import com.egomogo.api.service.dto.restaurant.CoordinateDto;
 import com.egomogo.api.global.adapter.webclient.dto.KakaoMapResponse;
 import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.util.ValidUtils;

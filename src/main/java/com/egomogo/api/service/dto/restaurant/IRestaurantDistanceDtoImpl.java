@@ -13,8 +13,8 @@ public class IRestaurantDistanceDtoImpl implements IRestaurantDistanceDto {
     private List<MenuDto> menus;
 
     public IRestaurantDistanceDtoImpl(IRestaurantDistanceDto inf) {
-        this.id = inf.getRestaurant_id();
-        this.name = inf.getRestaurant_name();
+        this.id = inf.getId();
+        this.name = inf.getName();
         this.address = inf.getAddress();
         this.x = inf.getX();
         this.y = inf.getY();
@@ -27,12 +27,12 @@ public class IRestaurantDistanceDtoImpl implements IRestaurantDistanceDto {
     }
 
     @Override
-    public String getRestaurant_id() {
+    public String getId() {
         return id;
     }
 
     @Override
-    public String getRestaurant_name() {
+    public String getName() {
         return name;
     }
 

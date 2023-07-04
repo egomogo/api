@@ -1,4 +1,4 @@
-package com.egomogo.api.global.adapter.webclient.dto;
+package com.egomogo.api.service.dto.restaurant;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

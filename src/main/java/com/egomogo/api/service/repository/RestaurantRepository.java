@@ -19,6 +19,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
                     "ORDER BY RAND(:seed) ",
             nativeQuery = true
     )
-    Slice<IRestaurantDistanceDto> findRestaurantDistanceByRandomAndDistanceLimit(Double userX, Double userY, Integer distance, Long seed, Pageable pageable);
+    Slice<IRestaurantDistanceDto> findByRandomAndDistance(Long seed, Double userX, Double userY, Integer distance, Pageable pageable);
 
 }
