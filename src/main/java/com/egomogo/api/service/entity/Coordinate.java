@@ -16,4 +16,10 @@ public class Coordinate {
 
     @Column(name = "y", nullable = false)
     private double y;
+
+    public Coordinate(Double x, Double y) {
+        this.x = x;
+        this.y = y;
+    }
+
 }

@@ -9,6 +9,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
@@ -18,12 +20,12 @@ public class RestaurantController {
 
     @PostMapping("/restaurants/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Long saveRestaurantsFromJson(@RequestBody SaveRestaurantJson.Request request) {
+    public Integer saveRestaurantsFromJson(@RequestBody List<SaveRestaurantJson.Request> request) {
         return restaurantService.saveRestaurantsFromJson(request);
     }
 
 
-    @GetMapping("/restaurant/random")
+    @GetMapping("/restaurants/random")
     @ResponseStatus(HttpStatus.OK)
     public GetRandomRestaurants.Response getRandomRestaurants(@RequestParam("seed") Long seed,
                                                               @RequestParam(value = "category", required = false) String category,

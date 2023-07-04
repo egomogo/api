@@ -1,13 +1,15 @@
 package com.egomogo.api.service.appservice;
 
-import com.egomogo.api.service.dto.restaurant.IRestaurantDto;
+import com.egomogo.api.service.dto.restaurant.IRestaurantDistanceDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
+import java.util.List;
+
 public interface RestaurantService {
 
-    Long saveRestaurantsFromJson(SaveRestaurantJson.Request request);
+    Integer saveRestaurantsFromJson(List<SaveRestaurantJson.Request> request);
 
     /**
      * 랜덤 매장을 반환하는 메소드. <br>
@@ -23,6 +25,6 @@ public interface RestaurantService {
      * @param pageable 페이징 요청 객체
      * @return 매장 DTO 인터페이스가 담긴 Slice 객체
      */
-    Slice<IRestaurantDto> getRandomRestaurants(Long seed, String category, String userX, String userY, String distanceLimit, Pageable pageable);
+    Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String category, String userX, String userY, String distanceLimit, Pageable pageable);
 
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Slice;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class GetRandomRestaurants {
         private List<RestaurantResponse> documents;
         private SliceMetaResponse meta;
 
-        public static Response fromDto(Slice<IRestaurantDto> slice) {
+        public static Response fromDto(Slice<IRestaurantDistanceDto> slice) {
             return Response.builder()
                     .documents(slice.getContent().stream().map(RestaurantResponse::fromDto).toList())
                     .meta(SliceMetaResponse.fromDto(slice))
@@ -30,13 +31,14 @@ public class GetRandomRestaurants {
             private RestaurantCoordinateResponse coords;
             private int distance;
 
-            private static RestaurantResponse fromDto(IRestaurantDto dto) {
+            private static RestaurantResponse fromDto(IRestaurantDistanceDto dto) {
                 return RestaurantResponse.builder()
-                        .id(dto.getId())
-                        .name(dto.getName())
+                        .id(dto.getRestaurant_id())
+                        .name(dto.getRestaurant_name())
                         .address(dto.getAddress())
-                        .menus(dto.getMenus().stream().map(RestaurantMenuResponse::fromDto).toList())
-                        .coords(RestaurantCoordinateResponse.fromDto(dto))
+                        .menus(CollectionUtils.isEmpty(dto.getMenus()) ?
+                                null : dto.getMenus().stream().map(RestaurantMenuResponse::fromDto).toList())
+                        .coords(RestaurantCoordinateResponse.of(dto.getX(), dto.getY()))
                         .distance(dto.getDistance())
                         .build();
             }
@@ -46,7 +48,7 @@ public class GetRandomRestaurants {
                 private String name;
                 private String price;
 
-                private static RestaurantMenuResponse fromDto(IMenuDto dto) {
+                private static RestaurantMenuResponse fromDto(MenuDto dto) {
                     return RestaurantMenuResponse.builder()
                             .name(dto.getName())
                             .price(dto.getPrice())
@@ -59,10 +61,10 @@ public class GetRandomRestaurants {
                 private double x;
                 private double y;
 
-                private static RestaurantCoordinateResponse fromDto(IRestaurantDto dto) {
+                private static RestaurantCoordinateResponse of(Double x, Double y) {
                     return RestaurantCoordinateResponse.builder()
-                            .x(dto.getX())
-                            .y(dto.getY())
+                            .x(x)
+                            .y(y)
                             .build();
                 }
             }
@@ -78,7 +80,7 @@ public class GetRandomRestaurants {
             private Boolean hasNext;
             private Boolean hasPrevious;
 
-            private static SliceMetaResponse fromDto(Slice<IRestaurantDto> slice) {
+            private static SliceMetaResponse fromDto(Slice<?> slice) {
                 return SliceMetaResponse.builder()
                         .number(slice.getNumber())
                         .size(slice.getSize())

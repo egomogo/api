@@ -13,6 +13,7 @@ public enum ErrorCode {
     UNAUTHORIZED,
 
     // Unique for each APIs
+    REQUIRED_PARAMETERS("요청에 필요한 모든 정보를 입력해주세요."),
     SOMETHING_BAD("Write a default message if it is required"); // this is a sample
 
     private final String message;
