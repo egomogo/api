@@ -27,4 +27,12 @@ public class SaveRestaurantJson {
             private String price;
         }
     }
+
+    @Data @NoArgsConstructor @AllArgsConstructor @Builder
+    public static class Response {
+        private int totalSize;
+        public static Response of(int size) {
+            return new Response(size);
+        }
+    }
 }

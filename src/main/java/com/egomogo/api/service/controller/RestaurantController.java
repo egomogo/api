@@ -20,10 +20,11 @@ public class RestaurantController {
 
     @PostMapping("/restaurants/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer saveRestaurantsFromJson(@RequestBody List<SaveRestaurantJson.Request> request) {
-        return restaurantService.saveRestaurantsFromJson(request);
+    public SaveRestaurantJson.Response saveRestaurantsFromJson(@RequestBody List<SaveRestaurantJson.Request> request) {
+        return SaveRestaurantJson.Response.of(
+                restaurantService.saveRestaurantsFromJson(request)
+        );
     }
-
 
     @GetMapping("/restaurants/random")
     @ResponseStatus(HttpStatus.OK)
