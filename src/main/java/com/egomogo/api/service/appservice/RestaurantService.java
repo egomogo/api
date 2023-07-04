@@ -30,6 +30,11 @@ public interface RestaurantService {
      * @param pageable 페이징 요청 객체
      * @return 매장 DTO 인터페이스가 담긴 Slice 객체
      */
-    Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String category, Double userX, Double userY, Integer distanceLimit, Pageable pageable);
+    Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed,
+                                                       String categoryParam,
+                                                       Double userX,
+                                                       Double userY,
+                                                       Integer distanceLimit,
+                                                       Pageable pageable);
 
 }

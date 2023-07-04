@@ -1,7 +1,6 @@
 package com.egomogo.api.service.appservice;
 
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
-import com.egomogo.api.service.dto.restaurant.CoordinateDto;
 import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
@@ -60,12 +59,17 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     @Transactional(readOnly = true)
-    public Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String category, Double userX, Double userY, Integer distanceLimit, Pageable pageable) {
-        validateRandomQueryRequest(category);
-
+    public Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String categoryParam, Double userX, Double userY, Integer distanceLimit, Pageable pageable) {
         // 요청자와의 거리를 연산한 매장 정보를 조회
-        Slice<IRestaurantDistanceDto> restaurantDBResults = restaurantRepository.findByRandomAndDistance(
-                seed, userX, userY, distanceLimit, pageable);
+        Slice<IRestaurantDistanceDto> restaurantDBResults = null;
+        if (categoryParam == null || categoryParam.isBlank()) {
+            // 모든 카테고리 조회
+            restaurantDBResults = restaurantRepository.findByRandomAndDistance(seed, userX, userY, distanceLimit, pageable);
+        } else {
+            // 특정 카테고리 조회
+            Category category = Category.of(categoryParam);
+
+        }
 
         // Slice 객체의 Content에 해당하는 데이터를 인터페이스에서 구현체로 변환하여 반환
         return restaurantDBResults.map(it -> {
@@ -75,17 +79,6 @@ public class RestaurantServiceImpl implements RestaurantService {
             List<Menu> menus = menuRepository.findTop3ByRestaurantId(dtoResult.getId());
             return dtoResult.setMenus(menus.stream().map(MenuDto::fromEntity).toList());
         });
-    }
-
-    private void validateRandomQueryRequest(String category) {
-        if (category == null || category.isBlank()) return;
-        for (Category value : Category.values()) {
-            if (value.name().equals(category)) {
-                return;
-            }
-        }
-        // 유효하지 않은 카테고리로 요청했을 경우
-        throw new BadRequest(ErrorCode.INVALID_PARAMETER_FORMAT);
     }
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {

@@ -2,7 +2,6 @@ package com.egomogo.api.service.appservice;
 
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
 import com.egomogo.api.service.dto.restaurant.CoordinateDto;
-import com.egomogo.api.global.util.ValidUtils;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.api.service.entity.Restaurant;
 import com.egomogo.api.service.repository.RestaurantRepository;
@@ -60,16 +59,4 @@ class RestaurantServiceImplUnitTest {
         Assertions.assertEquals(3, result);
     }
 
-    @Test
-    @DisplayName("")
-    void t() {
-        // given
-        String s = "서울특별시 서대문구 증가로 84, 1층 105호 (연희동)";
-        s = s.substring(0, s.indexOf("("));
-        System.out.println(s);
-        double v = ValidUtils.similarityBetweenTexts(s, "서울 서대문구 증가로 84");
-        System.out.println(v);
-        // when
-        // then
-    }
 }

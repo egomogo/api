@@ -15,10 +15,10 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
             value = "SELECT *, " +
                     "ST_Distance_Sphere(POINT(:userX, :userY), POINT(r.x, r.y)) as distance " +
                     "FROM restaurant r " +
-                    "HAVING distance <= :distance " +
+                    "HAVING distance <= :distanceLimit " +
                     "ORDER BY RAND(:seed) ",
             nativeQuery = true
     )
-    Slice<IRestaurantDistanceDto> findByRandomAndDistance(Long seed, Double userX, Double userY, Integer distance, Pageable pageable);
+    Slice<IRestaurantDistanceDto> findByRandomAndDistance(Long seed, Double userX, Double userY, Integer distanceLimit, Pageable pageable);
 
 }
