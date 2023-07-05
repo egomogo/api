@@ -1,42 +1,61 @@
 package com.egomogo.api.service.entity;
 
+import com.egomogo.api.global.util.Generator;
+import com.egomogo.api.service.entity.base.BaseAuditEntity;
 import com.egomogo.api.service.type.Category;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "restaurant")
 @Getter
-@Entity
-public class Restaurant {
+@Entity(name = "restaurant")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@SuperBuilder
+@ToString
+public class Restaurant extends BaseAuditEntity {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @Column(name = "id", nullable = false)
+    private String id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "address", nullable = false)
     private String address;
 
     @Embedded
     private Coordinate coordinate;
 
-    @Column(nullable = false)
+    @Column(name = "naver_shop_id", nullable = false)
     private String naverShopId;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
 
     @ElementCollection(targetClass = Category.class)
-    @CollectionTable
+    @CollectionTable(name = "restaurant_categories")
     @Enumerated(EnumType.STRING)
     private List<Category> categories = new ArrayList<>();
 
+    public static Restaurant create(String name, String address, Double x, Double y, String naverShopId) {
+        return Restaurant.builder()
+                .id(Generator.generateUUID())
+                .name(name)
+                .address(address)
+                .coordinate(new Coordinate(x, y))
+                .naverShopId(naverShopId)
+                .menus(new ArrayList<>())
+                .categories(new ArrayList<>())
+                .build();
+    }
+
+    public void addMenu(Menu menu) {
+        this.menus.add(menu);
+        menu.associate(this);
+    }
 }

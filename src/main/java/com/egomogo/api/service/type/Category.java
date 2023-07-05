@@ -1,5 +1,7 @@
 package com.egomogo.api.service.type;
 
+import com.egomogo.api.global.exception.impl.BadRequest;
+import com.egomogo.api.global.exception.model.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,6 +14,19 @@ public enum Category {
     CAFE("카페"), DESSERT("디저트"), CONVENIENCE_FOOD("간편식"), JAPANESE_FOOD("일식");
 
     private final String korean;
+
+    public static Category of(String category) {
+        if (category != null && !category.isBlank()) {
+            for (Category value : Category.values()) {
+                if (value.name().equals(category)) {
+                    return value;
+                }
+            }
+
+        }
+        // 유효하지 않은 카테고리로 요청했을 경우
+        throw new BadRequest(ErrorCode.INVALID_PARAMETER_FORMAT);
+    }
 
 
 }

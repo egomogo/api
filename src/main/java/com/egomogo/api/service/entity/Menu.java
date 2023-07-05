@@ -1,26 +1,43 @@
 package com.egomogo.api.service.entity;
 
+import com.egomogo.api.global.util.Generator;
+import com.egomogo.api.service.entity.base.BaseAuditEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.util.UUID;
-
-@Entity
 @Getter
+@Entity(name = "menu")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Menu {
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@SuperBuilder
+@ToString(exclude = "restaurant")
+public class Menu extends BaseAuditEntity {
 
     @Id
-    private String id = UUID.randomUUID().toString();
+    @Column(name = "id", nullable = false, updatable = false)
+    private String id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "price")
     private String price;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id")
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
+
+    public static Menu create(String name, String price) {
+        return Menu.builder()
+                .id(Generator.generateUUID())
+                .name(name)
+                .price(price)
+                .build();
+    }
+
+    public void associate(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
 }

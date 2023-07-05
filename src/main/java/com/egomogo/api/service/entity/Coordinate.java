@@ -6,14 +6,20 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Embeddable
 @Getter
+@Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Coordinate {
 
-    @Column(nullable = false)
+    @Column(name = "x", nullable = false)
     private double x;
 
-    @Column(nullable = false)
+    @Column(name = "y", nullable = false)
     private double y;
+
+    public Coordinate(Double x, Double y) {
+        this.x = x;
+        this.y = y;
+    }
+
 }
