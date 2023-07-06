@@ -1,7 +1,7 @@
 package com.egomogo.api.service.dto.restaurant;
 
 import com.egomogo.api.service.entity.Restaurant;
-import com.egomogo.api.service.type.Category;
+import com.egomogo.api.service.type.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class RestaurantDto {
     private double y;
     private String naverShopId;
     private List<MenuDto> menus;
-    private List<Category> categories;
+    private List<CategoryType> categories;
 
     public static RestaurantDto fromEntity(Restaurant entity) {
         return RestaurantDto.builder()
