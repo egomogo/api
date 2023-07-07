@@ -16,16 +16,13 @@ repositories {
 }
 
 dependencies {
+    implementation project(':domain')
 
     // domain
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
-    // database
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
     // util
     implementation 'org.springframework.boot:spring-boot-starter-validation'

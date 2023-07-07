@@ -1,6 +1,6 @@
 package com.egomogo.api.service.appservice;
 
-import com.egomogo.api.service.dto.restaurant.IRestaurantDistanceDto;
+import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;

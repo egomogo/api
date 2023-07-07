@@ -1,4 +1,4 @@
-package com.egomogo.api.service.dto.restaurant;
+package com.egomogo.domain.dto;
 
 import java.util.List;
 

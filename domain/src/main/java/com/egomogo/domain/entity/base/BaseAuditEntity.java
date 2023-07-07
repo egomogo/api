@@ -1,4 +1,4 @@
-package com.egomogo.api.service.entity.base;
+package com.egomogo.domain.entity.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

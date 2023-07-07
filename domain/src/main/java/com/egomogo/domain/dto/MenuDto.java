@@ -1,6 +1,6 @@
-package com.egomogo.api.service.dto.restaurant;
+package com.egomogo.domain.dto;
 
-import com.egomogo.api.service.entity.Menu;
+import com.egomogo.domain.entity.Menu;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,5 +1,7 @@
 package com.egomogo.api.service.dto.restaurant;
 
+import com.egomogo.domain.dto.IRestaurantDistanceDto;
+import com.egomogo.domain.dto.MenuDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

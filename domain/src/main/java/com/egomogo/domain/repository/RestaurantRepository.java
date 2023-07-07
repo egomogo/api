@@ -1,7 +1,7 @@
-package com.egomogo.api.service.repository;
+package com.egomogo.domain.repository;
 
-import com.egomogo.api.service.dto.restaurant.IRestaurantDistanceDto;
-import com.egomogo.api.service.entity.Restaurant;
+import com.egomogo.domain.dto.IRestaurantDistanceDto;
+import com.egomogo.domain.entity.Restaurant;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;

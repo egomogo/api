@@ -1,4 +1,4 @@
-package com.egomogo.api.service.type;
+package com.egomogo.domain.type;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;

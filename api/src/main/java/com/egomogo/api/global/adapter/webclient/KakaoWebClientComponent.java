@@ -3,7 +3,7 @@ package com.egomogo.api.global.adapter.webclient;
 import com.egomogo.api.global.adapter.webclient.dto.KakaoMapResponse;
 import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.util.ValidUtils;
-import com.egomogo.api.service.dto.restaurant.CoordinateDto;
+import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;

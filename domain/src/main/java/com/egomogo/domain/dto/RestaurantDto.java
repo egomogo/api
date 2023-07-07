@@ -1,7 +1,7 @@
-package com.egomogo.api.service.dto.restaurant;
+package com.egomogo.domain.dto;
 
-import com.egomogo.api.service.entity.Restaurant;
-import com.egomogo.api.service.type.CategoryType;
+import com.egomogo.domain.entity.Restaurant;
+import com.egomogo.domain.type.CategoryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

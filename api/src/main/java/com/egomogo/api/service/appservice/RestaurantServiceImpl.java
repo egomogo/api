@@ -1,14 +1,18 @@
 package com.egomogo.api.service.appservice;
 
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
+import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
 import com.egomogo.api.service.dto.restaurant.*;
-import com.egomogo.api.service.entity.Menu;
-import com.egomogo.api.service.entity.Restaurant;
-import com.egomogo.api.service.repository.MenuRepository;
-import com.egomogo.api.service.repository.RestaurantRepository;
+import com.egomogo.domain.dto.IRestaurantDistanceDto;
+import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
+import com.egomogo.domain.dto.MenuDto;
+import com.egomogo.domain.entity.Menu;
+import com.egomogo.domain.entity.Restaurant;
+import com.egomogo.domain.repository.MenuRepository;
+import com.egomogo.domain.repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;

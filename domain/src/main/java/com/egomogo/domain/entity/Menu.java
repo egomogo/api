@@ -1,7 +1,7 @@
-package com.egomogo.api.service.entity;
+package com.egomogo.domain.entity;
 
 import com.egomogo.api.global.util.Generator;
-import com.egomogo.api.service.entity.base.BaseAuditEntity;
+import com.egomogo.domain.entity.base.BaseAuditEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
