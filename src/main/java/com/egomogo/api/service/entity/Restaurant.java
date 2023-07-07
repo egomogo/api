@@ -2,7 +2,7 @@ package com.egomogo.api.service.entity;
 
 import com.egomogo.api.global.util.Generator;
 import com.egomogo.api.service.entity.base.BaseAuditEntity;
-import com.egomogo.api.service.type.Category;
+import com.egomogo.api.service.type.CategoryType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -37,10 +37,10 @@ public class Restaurant extends BaseAuditEntity {
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
 
-    @ElementCollection(targetClass = Category.class)
+    @ElementCollection(targetClass = CategoryType.class)
     @CollectionTable(name = "restaurant_categories")
     @Enumerated(EnumType.STRING)
-    private List<Category> categories = new ArrayList<>();
+    private List<CategoryType> categories = new ArrayList<>();
 
     public static Restaurant create(String name, String address, Double x, Double y, String naverShopId) {
         return Restaurant.builder()

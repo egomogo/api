@@ -9,7 +9,7 @@ import com.egomogo.api.service.entity.Menu;
 import com.egomogo.api.service.entity.Restaurant;
 import com.egomogo.api.service.repository.MenuRepository;
 import com.egomogo.api.service.repository.RestaurantRepository;
-import com.egomogo.api.service.type.Category;
+import com.egomogo.api.service.type.CategoryType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -67,7 +67,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             restaurantDBResults = restaurantRepository.findByRandomAndDistance(seed, userX, userY, distanceLimit, pageable);
         } else {
             // 특정 카테고리 조회
-            Category category = Category.of(categoryParam);
+//            CategoryType category = CategoryType.of(categoryParam);
 
         }
 
