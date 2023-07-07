@@ -1,4 +1,4 @@
-package com.egomogo.api.global.util;
+package com.egomogo.domain.util;
 
 import java.util.UUID;
 

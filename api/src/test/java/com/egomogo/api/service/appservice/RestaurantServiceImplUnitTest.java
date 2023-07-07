@@ -1,10 +1,10 @@
 package com.egomogo.api.service.appservice;
 
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
-import com.egomogo.api.service.dto.restaurant.CoordinateDto;
+import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
-import com.egomogo.api.service.entity.Restaurant;
-import com.egomogo.api.service.repository.RestaurantRepository;
+import com.egomogo.domain.entity.Restaurant;
+import com.egomogo.domain.repository.RestaurantRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class RestaurantServiceImplUnitTest {
+public class RestaurantServiceImplUnitTest {
 
     @InjectMocks
     private RestaurantServiceImpl restaurantService;
