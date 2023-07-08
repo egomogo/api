@@ -1,1 +1,3 @@
-rootProject.name = 'api'
+rootProject.name = 'backend'
+include 'api'
+include 'domain'
