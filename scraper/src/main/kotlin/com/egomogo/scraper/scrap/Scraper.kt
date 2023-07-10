@@ -1,6 +1,7 @@
 package com.egomogo.scraper.scrap
 
 interface Scraper<T> {
+
     fun scrap(data: List<T>) : List<T>
 
     fun sleep(millis: Long) {
@@ -10,4 +11,5 @@ interface Scraper<T> {
             throw RuntimeException(e)
         }
     }
+    
 }
