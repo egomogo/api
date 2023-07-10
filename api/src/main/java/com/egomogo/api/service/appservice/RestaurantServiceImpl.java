@@ -46,7 +46,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             CoordinateDto coords = kakaoWebClientComponent.getCoordinateByAddress(it.getAddress());
             // 매장 인스턴스 생성
             Restaurant restaurant = Restaurant.create(
-                    it.getName(), it.getAddress(), coords.getX(), coords.getY(), it.getNaverShopId());
+                    it.getName(), it.getAddress(), coords.getX(), coords.getY(), it.getKakaoPlaceId());
             // 메뉴가 존재할 경우, 메뉴 인스턴스를 생성하여 해당 매장에 추가
             if (!CollectionUtils.isEmpty(it.getMenus())) {
                 it.getMenus().forEach(mit ->
