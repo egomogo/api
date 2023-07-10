@@ -31,8 +31,8 @@ public class Restaurant extends BaseAuditEntity {
     @Embedded
     private Coordinate coordinate;
 
-    @Column(name = "naver_shop_id", nullable = false)
-    private String naverShopId;
+    @Column(name = "kakao_place_id", nullable = false)
+    private String kakaoPlaceId;
 
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
@@ -42,13 +42,13 @@ public class Restaurant extends BaseAuditEntity {
     @Enumerated(EnumType.STRING)
     private List<CategoryType> categories = new ArrayList<>();
 
-    public static Restaurant create(String name, String address, Double x, Double y, String naverShopId) {
+    public static Restaurant create(String name, String address, Double x, Double y, String kakaoPlaceId) {
         return Restaurant.builder()
                 .id(Generator.generateUUID())
                 .name(name)
                 .address(address)
                 .coordinate(new Coordinate(x, y))
-                .naverShopId(naverShopId)
+                .kakaoPlaceId(kakaoPlaceId)
                 .menus(new ArrayList<>())
                 .categories(new ArrayList<>())
                 .build();
