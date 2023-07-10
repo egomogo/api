@@ -8,7 +8,7 @@ CREATE TABLE `restaurant` (
     address varchar(255) not null ,
     x float(53) default 0.0 not null ,
     y float(53) default 0.0 not null ,
-    naver_shop_id varchar(50) not null ,
+    kakao_place_id varchar(50) not null ,
     created_at datetime not null ,
     updated_at datetime
 );
@@ -25,6 +25,6 @@ CREATE TABLE `menu` (
 
 CREATE TABLE `restaurant_categories` (
     restaurant_id varchar(40) not null ,
-    categories ENUM('KOREAN_FOOD', 'WESTERN_FOOD', 'ASIAN_FOOD', 'FLOUR_BASED_FOOD', 'MEAT', 'CHINESE_FOOD', 'CAFE', 'DESSERT', 'CONVENIENCE_FOOD', 'JAPANESE_FOOD') not null ,
+    categories varchar(100) not null ,
     FOREIGN KEY (restaurant_id) REFERENCES `restaurant` (id)
 );
