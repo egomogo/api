@@ -11,5 +11,5 @@ interface Scraper<T> {
             throw RuntimeException(e)
         }
     }
-    
+
 }
