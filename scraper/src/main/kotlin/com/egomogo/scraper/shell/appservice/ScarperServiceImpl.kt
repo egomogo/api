@@ -35,15 +35,15 @@ class ScarperServiceImpl(
 
         restaurants.forEach {
             val proxyRestaurant = scrapedResult[getRestaurantIdFromJavaClass(it)]
-            if (getRestaurantKakaoPlaceIdFromJaveClass(it) != proxyRestaurant!!.kakaoPlaceId) {
+            if (getRestaurantKakaoPlaceIdFromJavaClass(it) != proxyRestaurant!!.kakaoPlaceId) {
                 // 실제 매장과 스크래핑 매장이 상이한 경우
                 val id = getRestaurantIdFromJavaClass(it)
-                val kakaoPlaceId = getRestaurantKakaoPlaceIdFromJaveClass(it)
+                val kakaoPlaceId = getRestaurantKakaoPlaceIdFromJavaClass(it)
                 log.error("Mismatch between DB restaurants kakao id and proxy kakao id. PK id: ${id}. " +
                         "DB kakao ID: ${kakaoPlaceId}, Proxy kakao ID: ${proxyRestaurant.kakaoPlaceId}")
                 return@forEach
             }
-               
+            proxyRestaurant.menus.forEach {pMenu -> it.addMenu(convertProxyToEntity(pMenu)) }
         }
     }
 
@@ -59,7 +59,7 @@ class ScarperServiceImpl(
             it.isAccessible = true
             return@let it.get(this) as String
         }
-        val kakaoPlaceId = getRestaurantKakaoPlaceIdFromJaveClass(restaurant)
+        val kakaoPlaceId = getRestaurantKakaoPlaceIdFromJavaClass(restaurant)
         return ProxyRestaurant(proxyId = id, proxyName = name, kakaoPlaceId = kakaoPlaceId)
     }
 
@@ -74,7 +74,7 @@ class ScarperServiceImpl(
         }
     }
 
-    private fun getRestaurantKakaoPlaceIdFromJaveClass(restaurant: Restaurant) : String {
+    private fun getRestaurantKakaoPlaceIdFromJavaClass(restaurant: Restaurant) : String {
         return restaurant.javaClass.getDeclaredField("kakaoPlaceId").let {
             it.isAccessible = true
             return@let it.get(this) as String
