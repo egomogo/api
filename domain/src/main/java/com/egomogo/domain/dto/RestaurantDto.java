@@ -19,7 +19,7 @@ public class RestaurantDto {
     private String address;
     private double x;
     private double y;
-    private String naverShopId;
+    private String kakaoPlaceId;
     private List<MenuDto> menus;
     private List<CategoryType> categories;
 
@@ -30,7 +30,7 @@ public class RestaurantDto {
                 .address(entity.getAddress())
                 .x(entity.getCoordinate().getX())
                 .y(entity.getCoordinate().getY())
-                .naverShopId(entity.getNaverShopId())
+                .kakaoPlaceId(entity.getKakaoPlaceId())
                 .menus(entity.getMenus().stream().map(MenuDto::fromEntity).toList())
                 .categories(entity.getCategories())
                 .build();

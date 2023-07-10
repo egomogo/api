@@ -16,7 +16,7 @@ public class SaveRestaurantJson {
         @NotBlank
         private String address;
         @NotBlank
-        private String naverShopId;
+        private String kakaoPlaceId;
         private List<SaveMenuRequest> menus;
 
         @Data @NoArgsConstructor @AllArgsConstructor @Builder
