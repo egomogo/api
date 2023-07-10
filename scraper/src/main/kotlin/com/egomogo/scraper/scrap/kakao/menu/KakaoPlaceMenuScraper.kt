@@ -24,7 +24,7 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
     override fun scrap(data: List<ProxyRestaurant>) : Map<String, ProxyRestaurant> {
         log.info("Start scraping Restaurant. size: ${data.size}")
 
-        System.setProperty("webdriver.chrome.driver", "$ROOT_PATH/chromedriver/chromedriver.exe")
+        System.setProperty("webdriver.chrome.driver", "$ROOT_PATH/scraper/chromedriver/chromedriver.exe")
 
         val options = ChromeOptions()
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)

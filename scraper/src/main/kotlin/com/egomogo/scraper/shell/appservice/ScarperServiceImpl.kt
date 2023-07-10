@@ -9,6 +9,8 @@ import com.egomogo.scraper.scrap.kakao.proxy.ProxyRestaurant
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.util.CollectionUtils
+import java.util.Collections
 import java.util.concurrent.atomic.AtomicInteger
 
 @Service
@@ -22,6 +24,7 @@ class ScarperServiceImpl(
     override fun saveScarpedMenuResult() : Int {
         // Fetch Restaurants that doesn't have any menu
         val proxyRestaurants : List<ProxyRestaurant> = fetchRestaurantsNullMenus()
+        if (CollectionUtils.isEmpty(proxyRestaurants)) return 0
 
         // Scraping
         val scrapedResult = kakaoPlaceMenuScraper.scrap(proxyRestaurants)
