@@ -1,4 +1,4 @@
-package com.example.scrapertest.scraper.util
+package com.egomogo.scraper.scrap.util
 
 import org.apache.commons.text.similarity.LevenshteinDistance
 

@@ -1,6 +1,4 @@
-package com.example.scrapertest.scraper.util
-
-import com.example.scrapertest.scraper.kakao.proxy.ProxyRestaurant
+package com.egomogo.scraper.scrap.util
 
 interface FileManager<T> {
 
@@ -8,6 +6,6 @@ interface FileManager<T> {
 
     fun saveJsonFile(data: List<T>, fileName: String)
 
-    fun parseFromJson(filePath: String) : List<ProxyRestaurant>
+    fun parseFromJson(filePath: String) : List<T>
 
 }
