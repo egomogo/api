@@ -4,7 +4,6 @@ import com.egomogo.scraper.scrap.Scraper
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyMenu
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyRestaurant
 import com.egomogo.scraper.scrap.util.Validator
-import lombok.RequiredArgsConstructor
 import org.openqa.selenium.By
 import org.openqa.selenium.PageLoadStrategy
 import org.openqa.selenium.WebElement
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-@RequiredArgsConstructor
 class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
 
     private val log = LoggerFactory.getLogger(KakaoPlaceMenuScraper::class.java)
