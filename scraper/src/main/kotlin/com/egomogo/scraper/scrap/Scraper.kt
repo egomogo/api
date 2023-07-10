@@ -1,8 +1,8 @@
 package com.egomogo.scraper.scrap
 
-interface Scraper<T> {
+interface Scraper<K, T> {
 
-    fun scrap(data: List<T>) : List<T>
+    fun scrap(data: List<T>) : Map<K, T>
 
     fun sleep(millis: Long) {
         try {

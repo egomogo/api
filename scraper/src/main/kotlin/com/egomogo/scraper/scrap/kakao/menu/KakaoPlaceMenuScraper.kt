@@ -11,9 +11,11 @@ import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
 
+@Component
 @RequiredArgsConstructor
-class KakaoPlaceMenuScraper : Scraper<ProxyRestaurant> {
+class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
 
     private val log = LoggerFactory.getLogger(KakaoPlaceMenuScraper::class.java)
 
@@ -21,7 +23,7 @@ class KakaoPlaceMenuScraper : Scraper<ProxyRestaurant> {
         val ROOT_PATH: String = System.getProperty("user.dir")
     }
 
-    override fun scrap(data: List<ProxyRestaurant>) : List<ProxyRestaurant> {
+    override fun scrap(data: List<ProxyRestaurant>) : Map<String, ProxyRestaurant> {
         log.info("Start scraping Restaurant. size: ${data.size}")
 
         System.setProperty("webdriver.chrome.driver", "$ROOT_PATH/chromedriver/chromedriver.exe")
@@ -37,7 +39,7 @@ class KakaoPlaceMenuScraper : Scraper<ProxyRestaurant> {
         val driver = ChromeDriver(options)
         driver.switchTo().defaultContent()
 
-        val result: ArrayList<ProxyRestaurant> = ArrayList()
+        val result = HashMap<String, ProxyRestaurant>()
 
         for (restaurant in data) {
             driver.get("https://place.map.kakao.com/${restaurant.kakaoPlaceId}")
@@ -46,9 +48,9 @@ class KakaoPlaceMenuScraper : Scraper<ProxyRestaurant> {
             val titleOfWeb : String = driver.findElement(By.id("kakaoContent"))
                     .findElement(By.className("tit_location")).text
 
-            if (!isMatchRestaurant(restaurant.name, titleOfWeb)) {
+            if (!isMatchRestaurant(restaurant.proxyName, titleOfWeb)) {
                 log.error("Mismatch between Real restaurant name and Scraped restaurant name. " +
-                        "Real name: ${restaurant.name}, Scraped name: $titleOfWeb")
+                        "Real name: ${restaurant.proxyName}, Scraped name: $titleOfWeb")
                 continue
             }
 
@@ -60,10 +62,10 @@ class KakaoPlaceMenuScraper : Scraper<ProxyRestaurant> {
                     restaurant.addMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
-                result.add(restaurant)
-                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.name}")
+                result[restaurant.proxyId] = restaurant
+                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}")
             } catch (e : NoSuchElementException) {
-                result.add(restaurant)
+                result[restaurant.proxyId] = restaurant
             }
 
             sleep(1000)

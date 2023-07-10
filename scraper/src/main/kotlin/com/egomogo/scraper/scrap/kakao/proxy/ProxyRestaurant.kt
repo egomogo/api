@@ -1,8 +1,8 @@
 package com.egomogo.scraper.scrap.kakao.proxy
 
 data class ProxyRestaurant(
-        val id: String,
-        val name: String,
+        val proxyId: String,
+        val proxyName: String,
         val kakaoPlaceId: String,
         var menus: ArrayList<ProxyMenu> = ArrayList()
 ) {
