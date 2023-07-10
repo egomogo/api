@@ -86,8 +86,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {
         request.forEach(it -> {
-            if (ValidUtils.hasNotTexts(it.getName(), it.getAddress(), it.getNaverShopId())) {
-                // 매장 정보 중 필수 파라미터를 제공하지 않은 경우
+            if (ValidUtils.hasNotTexts(it.getName(), it.getAddress(), it.getKakaoPlaceId())) {
+                // 매장 정보 중 필수 파라미터를 제공하지 않은 경우A
                 throw new BadRequest(ErrorCode.NEED_REQUIRED_PARAMETERS);
             }
             if (!CollectionUtils.isEmpty(it.getMenus())) {
