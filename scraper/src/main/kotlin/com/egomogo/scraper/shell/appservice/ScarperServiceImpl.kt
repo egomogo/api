@@ -9,6 +9,7 @@ import com.egomogo.scraper.scrap.kakao.proxy.ProxyRestaurant
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.concurrent.atomic.AtomicInteger
 
 @Service
 class ScarperServiceImpl(
@@ -18,7 +19,7 @@ class ScarperServiceImpl(
 
     private val log = LoggerFactory.getLogger(ScarperServiceImpl::class.java)
 
-    override fun saveScarpedMenuResult() {
+    override fun saveScarpedMenuResult() : Int {
         // Fetch Restaurants that doesn't have any menu
         val proxyRestaurants : List<ProxyRestaurant> = fetchRestaurantsNullMenus()
 
@@ -26,13 +27,14 @@ class ScarperServiceImpl(
         val scrapedResult = kakaoPlaceMenuScraper.scrap(proxyRestaurants)
 
         // Re-fetch Restaurant and Save Menus each restaurant
-        saveMenus(scrapedResult)
+        return saveMenus(scrapedResult)
     }
 
     @Transactional
-    fun saveMenus(scrapedResult: Map<String, ProxyRestaurant>) {
+    fun saveMenus(scrapedResult: Map<String, ProxyRestaurant>): Int {
         val restaurants = restaurantRepository.findAllById(scrapedResult.keys)
 
+        val count = AtomicInteger(0)
         restaurants.forEach {
             val proxyRestaurant = scrapedResult[getRestaurantIdFromJavaClass(it)]
             if (getRestaurantKakaoPlaceIdFromJavaClass(it) != proxyRestaurant!!.kakaoPlaceId) {
@@ -44,7 +46,10 @@ class ScarperServiceImpl(
                 return@forEach
             }
             proxyRestaurant.menus.forEach {pMenu -> it.addMenu(convertProxyToEntity(pMenu)) }
+            count.getAndIncrement()
         }
+
+        return count.get()
     }
 
     @Transactional(readOnly = true)
