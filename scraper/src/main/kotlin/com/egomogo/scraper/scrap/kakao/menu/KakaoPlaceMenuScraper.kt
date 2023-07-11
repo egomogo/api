@@ -56,17 +56,23 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                 val menusOfRestaurant : List<WebElement> = driver.findElements(By.className("info_menu"))
                 menusOfRestaurant.forEach{
                     val menuName = it.findElement(By.className("loss_word")).text
-                    val price = it.findElement(By.className("price_menu")).text
+                    if (menuName == null || menuName.isBlank()) return@forEach
+
+                    val price: String = try {
+                        it.findElement(By.className("price_menu")).text
+                    } catch (e : org.openqa.selenium.NoSuchElementException) {
+                        "가격정보 없음"
+                    }
                     restaurant.addMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
                 result[restaurant.proxyId] = restaurant
-                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}")
-            } catch (e : NoSuchElementException) {
+                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.menus.size}.")
+            } catch (e : org.openqa.selenium.NoSuchElementException) {
                 result[restaurant.proxyId] = restaurant
             }
 
-            sleep(1000)
+            sleep(500)
         }
 
         sleep(1000)

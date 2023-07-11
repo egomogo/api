@@ -21,6 +21,7 @@ class ScarperServiceImpl(
 
     private val log = LoggerFactory.getLogger(ScarperServiceImpl::class.java)
 
+    @Transactional
     override fun saveScarpedMenuResult() : Int {
         // Fetch Restaurants that doesn't have any menu
         val proxyRestaurants : List<ProxyRestaurant> = fetchRestaurantsNullMenus()
@@ -33,9 +34,15 @@ class ScarperServiceImpl(
         return saveMenus(scrapedResult)
     }
 
-    @Transactional
+    fun fetchRestaurantsNullMenus() : List<ProxyRestaurant> {
+        val restaurants : List<Restaurant> = restaurantRepository.findByMenusIsNull()
+        log.info("fetch restaurant size: ${restaurants.size}.")
+        return restaurants.map { convertEntityToProxy(it) }
+    }
+
     fun saveMenus(scrapedResult: Map<String, ProxyRestaurant>): Int {
         val restaurants = restaurantRepository.findAllById(scrapedResult.keys)
+        log.info("start save menus ${restaurants.size} restaurants.")
 
         val count = AtomicInteger(0)
         restaurants.forEach {
@@ -52,20 +59,15 @@ class ScarperServiceImpl(
             count.getAndIncrement()
         }
 
+        log.info("end save menus ${count.get()} restaurants.")
         return count.get()
-    }
-
-    @Transactional(readOnly = true)
-    fun fetchRestaurantsNullMenus() : List<ProxyRestaurant> {
-        val restaurants : List<Restaurant> = restaurantRepository.findByMenusIsNull()
-        return restaurants.map { convertEntityToProxy(it) }
     }
 
     private fun convertEntityToProxy(restaurant: Restaurant) : ProxyRestaurant {
         val id = getRestaurantIdFromJavaClass(restaurant)
         val name = restaurant.javaClass.getDeclaredField("name").let {
             it.isAccessible = true
-            return@let it.get(this) as String
+            return@let it.get(restaurant) as String
         }
         val kakaoPlaceId = getRestaurantKakaoPlaceIdFromJavaClass(restaurant)
         return ProxyRestaurant(proxyId = id, proxyName = name, kakaoPlaceId = kakaoPlaceId)
@@ -78,14 +80,14 @@ class ScarperServiceImpl(
     private fun getRestaurantIdFromJavaClass(restaurant: Restaurant): String {
         return restaurant.javaClass.getDeclaredField("id").let {
             it.isAccessible = true
-            return@let it.get(this) as String
+            return@let it.get(restaurant) as String
         }
     }
 
     private fun getRestaurantKakaoPlaceIdFromJavaClass(restaurant: Restaurant) : String {
         return restaurant.javaClass.getDeclaredField("kakaoPlaceId").let {
             it.isAccessible = true
-            return@let it.get(this) as String
+            return@let it.get(restaurant) as String
         }
     }
 
