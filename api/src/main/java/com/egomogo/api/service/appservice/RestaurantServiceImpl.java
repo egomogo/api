@@ -72,7 +72,6 @@ public class RestaurantServiceImpl implements RestaurantService {
         } else {
             // 특정 카테고리 리스트 조회
             Set<String> categories = CategoryType.nameSetOf(paramCategories);
-            log.info("Categories: {}", categories);
             restaurantDBResults = restaurantRepository.findByRandomAndDistanceAndCategories(seed, userX, userY, distanceLimit, categories, pageable);
         }
 
