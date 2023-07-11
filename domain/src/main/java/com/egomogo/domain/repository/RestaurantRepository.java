@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, String> {
@@ -34,4 +35,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
     )
     Slice<IRestaurantDistanceDto> findByRandomAndDistanceAndCategories(Long seed, Double userX, Double userY, Integer distanceLimit,
                                                                        Collection<String> categories, Pageable pageable);
+  
+    List<Restaurant> findByMenusIsNull();
+
 }
