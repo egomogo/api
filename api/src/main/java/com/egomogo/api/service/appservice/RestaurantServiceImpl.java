@@ -6,7 +6,7 @@ import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.exception.impl.NotFound;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
-import com.egomogo.api.service.dto.restaurant.*;
+import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
 import com.egomogo.domain.dto.MenuDto;
@@ -14,6 +14,7 @@ import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
 import com.egomogo.domain.repository.MenuRepository;
 import com.egomogo.domain.repository.RestaurantRepository;
+import com.egomogo.domain.type.CategoryType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -57,25 +58,25 @@ public class RestaurantServiceImpl implements RestaurantService {
             saved.add(restaurant);
         });
 
-        // HashSet에 담긴 매장 정보를 DB에 저장
+        // HashSet 에 담긴 매장 정보를 DB에 저장
         return restaurantRepository.saveAll(saved).size();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, String categoryParam, Double userX, Double userY, Integer distanceLimit, Pageable pageable) {
+    public Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed, List<String> paramCategories, Double userX, Double userY, Integer distanceLimit, Pageable pageable) {
         // 요청자와의 거리를 연산한 매장 정보를 조회
-        Slice<IRestaurantDistanceDto> restaurantDBResults = null;
-        if (categoryParam == null || categoryParam.isBlank()) {
+        Slice<IRestaurantDistanceDto> restaurantDBResults;
+        if (paramCategories == null || paramCategories.isEmpty()) {
             // 모든 카테고리 조회
             restaurantDBResults = restaurantRepository.findByRandomAndDistance(seed, userX, userY, distanceLimit, pageable);
         } else {
-            // 특정 카테고리 조회
-//            CategoryType category = CategoryType.of(categoryParam);
-
+            // 특정 카테고리 리스트 조회
+            Set<String> categories = CategoryType.nameSetOf(paramCategories);
+            restaurantDBResults = restaurantRepository.findByRandomAndDistanceAndCategories(seed, userX, userY, distanceLimit, categories, pageable);
         }
 
-        // Slice 객체의 Content에 해당하는 데이터를 인터페이스에서 구현체로 변환하여 반환
+        // Slice 객체의 Content 에 해당하는 데이터를 인터페이스에서 구현체로 변환하여 반환
         return restaurantDBResults.map(it -> {
             // 매장 DTO 인터페이스를 매장 DTO 구현체 클래스로 변환
             IRestaurantDistanceDtoImpl dtoResult = new IRestaurantDistanceDtoImpl(it);

@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 secret.yml
+spring-shell.log
 
 ### STS ###
 .apt_generated
