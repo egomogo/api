@@ -31,7 +31,7 @@ public interface RestaurantService {
      * @return 매장 DTO 인터페이스가 담긴 Slice 객체
      */
     Slice<IRestaurantDistanceDto> getRandomRestaurants(Long seed,
-                                                       String categoryParam,
+                                                       List<String> paramCategories,
                                                        Double userX,
                                                        Double userY,
                                                        Integer distanceLimit,
