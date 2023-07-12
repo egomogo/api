@@ -44,7 +44,7 @@ public class RestaurantServiceImplUnitTest {
         // when
         Integer result = restaurantService.saveRestaurantsFromJson(List.of(
                 SaveRestaurantJson.Request.builder()
-                        .name("n").address("a").naverShopId("na")
+                        .name("n").address("a").kakaoPlaceId("na")
                         .menus(List.of(
                                 SaveRestaurantJson.Request.SaveMenuRequest.builder()
                                         .name("mn").price("mp").build(),
