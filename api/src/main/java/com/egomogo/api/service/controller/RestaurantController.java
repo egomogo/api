@@ -2,6 +2,7 @@ package com.egomogo.api.service.controller;
 
 import com.egomogo.api.service.appservice.RestaurantService;
 import com.egomogo.api.service.dto.restaurant.GetRandomRestaurants;
+import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -38,4 +39,12 @@ public class RestaurantController {
                 restaurantService.getRandomRestaurants(seed, category, userX, userY, distanceLimit, pageable)
         );
     }
+
+    @GetMapping("/restaurants/{restaurantId}")
+    @ResponseStatus(HttpStatus.OK)
+    public GetRestaurantInfoResponse getRestaurantInfo(@PathVariable String restaurantId){
+
+        return restaurantService.getRestaurantInfo(restaurantId);
+    }
+
 }

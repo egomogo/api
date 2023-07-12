@@ -1,5 +1,6 @@
 package com.egomogo.api.service.appservice;
 
+import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import org.springframework.data.domain.Pageable;
@@ -37,4 +38,5 @@ public interface RestaurantService {
                                                        Integer distanceLimit,
                                                        Pageable pageable);
 
+    GetRestaurantInfoResponse getRestaurantInfo(String restaurantId);
 }

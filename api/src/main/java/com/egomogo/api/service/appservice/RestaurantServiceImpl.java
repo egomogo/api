@@ -3,6 +3,7 @@ package com.egomogo.api.service.appservice;
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
 import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import com.egomogo.api.global.exception.impl.BadRequest;
+import com.egomogo.api.global.exception.impl.NotFound;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
 import com.egomogo.api.service.dto.restaurant.*;
@@ -82,6 +83,13 @@ public class RestaurantServiceImpl implements RestaurantService {
             List<Menu> menus = menuRepository.findTop3ByRestaurantId(dtoResult.getId());
             return dtoResult.setMenus(menus.stream().map(MenuDto::fromEntity).toList());
         });
+    }
+
+    @Override
+    public GetRestaurantInfoResponse getRestaurantInfo(String restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND));
+        GetRestaurantInfoResponse getRestaurantInfoResponse = GetRestaurantInfoResponse.of(restaurant);
+        return null;
     }
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {
