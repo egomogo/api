@@ -6,6 +6,7 @@ import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.exception.impl.NotFound;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
+import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;

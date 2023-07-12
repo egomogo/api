@@ -45,7 +45,7 @@ public class GetRestaurantInfoResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    private class MenuResponse {
+    private static class MenuResponse {
         private String name;
         private String price;
 
@@ -71,7 +71,7 @@ public class GetRestaurantInfoResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    private class CategoryResponse {
+    private static class CategoryResponse {
 
         String categoryName;
 
