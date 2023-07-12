@@ -29,9 +29,9 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
         val options = ChromeOptions()
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
         options.addArguments("--remote-allow-origins=*")
-        options.addArguments("--disable-popup-blocking");       //팝업안띄움
-//        options.addArguments("headless");                       //브라우저 안띄움
-//        options.addArguments("--blink-settings=imagesEnabled=false") //이미지 다운 안받음
+        options.addArguments("--disable-popup-blocking")                //팝업안띄움
+        options.addArguments("headless")                                //브라우저 안띄움
+        options.addArguments("--blink-settings=imagesEnabled=false")    //이미지 다운 안받음
         options.addArguments("disable-default-apps")
 
         val driver = ChromeDriver(options)
