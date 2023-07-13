@@ -6,7 +6,6 @@ import com.egomogo.domain.util.SeoulDateTime
 import com.egomogo.scraper.scrap.kakao.menu.KakaoPlaceMenuScraper
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyMenu
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyRestaurant
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
