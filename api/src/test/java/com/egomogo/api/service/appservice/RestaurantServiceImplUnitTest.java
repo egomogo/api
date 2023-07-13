@@ -3,6 +3,8 @@ package com.egomogo.api.service.appservice;
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
 import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
+import com.egomogo.domain.dto.RestaurantDto;
+import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
 import com.egomogo.domain.repository.RestaurantRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -58,5 +61,29 @@ public class RestaurantServiceImplUnitTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals(3, result);
     }
+
+    @Test
+    void getRestaurantInfoTest() {
+        //given
+        Restaurant testRestaurant = Restaurant.create("name", "address", 10.1, 12.2, "123");
+        testRestaurant.addMenu(Menu.create("testMenu", "10000"));
+        given(restaurantRepository.findById(anyString())).willReturn( Optional.of(testRestaurant));
+
+        //when
+        RestaurantDto result = restaurantService.getRestaurantInfo("test");
+
+        //then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("name", result.getName());
+        Assertions.assertEquals("address",result.getAddress());
+        Assertions.assertEquals(10.1,result.getX());
+        Assertions.assertEquals(12.2,result.getY());
+        Assertions.assertEquals("123",result.getKakaoPlaceId());
+
+        Assertions.assertEquals("testMenu",result.getMenus().get(0).getName());
+        Assertions.assertEquals("10000",result.getMenus().get(0).getPrice());
+
+    }
+
 
 }
