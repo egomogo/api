@@ -66,11 +66,11 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                     restaurant.addMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
-                result[restaurant.proxyId] = restaurant
                 log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.menus.size}.")
             } catch (e : org.openqa.selenium.NoSuchElementException) {
-                result[restaurant.proxyId] = restaurant
+                log.error("Occurred NoSuchElementException during scraped restaurant. name -> ${restaurant.proxyName}")
             }
+            result[restaurant.proxyId] = restaurant
 
             sleep(500)
         }
