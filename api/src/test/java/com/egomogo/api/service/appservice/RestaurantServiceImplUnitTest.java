@@ -77,23 +77,23 @@ public class RestaurantServiceImplUnitTest {
                                         .id("rid-1")
                                         .name("restaurant-1")
                                         .address("address-1")
-                                        .x(127.123132)
-                                        .y(37.123123)
-                                        .distance(500).build(),
+                                        .x(1.1)
+                                        .y(1.1)
+                                        .distance(100).build(),
                                 IRestaurantDistanceDtoImpl.builder()
                                         .id("rid-2")
                                         .name("restaurant-2")
                                         .address("address-2")
-                                        .x(127.123132)
-                                        .y(37.123123)
-                                        .distance(500).build(),
+                                        .x(2.2)
+                                        .y(2.2)
+                                        .distance(200).build(),
                                 IRestaurantDistanceDtoImpl.builder()
                                         .id("rid-3")
                                         .name("restaurant-3")
                                         .address("address-3")
-                                        .x(127.123132)
-                                        .y(37.123123)
-                                        .distance(500).build())));
+                                        .x(3.3)
+                                        .y(3.3)
+                                        .distance(300).build())));
         given(menuRepository.findTop3ByRestaurantId(anyString()))
                 .willReturn(List.of(
                         Menu.builder()
@@ -114,8 +114,29 @@ public class RestaurantServiceImplUnitTest {
         // then
         Assertions.assertNotNull(result);
         Assertions.assertEquals(3, result.getContent().size());
+
+        Assertions.assertEquals("rid-1", result.getContent().get(0).getId());
+        Assertions.assertEquals("restaurant-1", result.getContent().get(0).getName());
+        Assertions.assertEquals("address-1", result.getContent().get(0).getAddress());
+        Assertions.assertEquals(1.1, result.getContent().get(0).getX());
+        Assertions.assertEquals(1.1, result.getContent().get(0).getY());
+        Assertions.assertEquals(100, result.getContent().get(0).getDistance());
         Assertions.assertEquals(3, result.getContent().get(0).getMenus().size());
+
+        Assertions.assertEquals("rid-2", result.getContent().get(1).getId());
+        Assertions.assertEquals("restaurant-2", result.getContent().get(1).getName());
+        Assertions.assertEquals("address-2", result.getContent().get(1).getAddress());
+        Assertions.assertEquals(2.2, result.getContent().get(1).getX());
+        Assertions.assertEquals(2.2, result.getContent().get(1).getY());
+        Assertions.assertEquals(200, result.getContent().get(1).getDistance());
         Assertions.assertEquals(3, result.getContent().get(1).getMenus().size());
+
+        Assertions.assertEquals("rid-3", result.getContent().get(2).getId());
+        Assertions.assertEquals("restaurant-3", result.getContent().get(2).getName());
+        Assertions.assertEquals("address-3", result.getContent().get(2).getAddress());
+        Assertions.assertEquals(3.3, result.getContent().get(2).getX());
+        Assertions.assertEquals(3.3, result.getContent().get(2).getY());
+        Assertions.assertEquals(300, result.getContent().get(2).getDistance());
         Assertions.assertEquals(3, result.getContent().get(2).getMenus().size());
     }
 
@@ -166,8 +187,29 @@ public class RestaurantServiceImplUnitTest {
         // then
         Assertions.assertNotNull(result);
         Assertions.assertEquals(3, result.getContent().size());
+
+        Assertions.assertEquals("rid-1", result.getContent().get(0).getId());
+        Assertions.assertEquals("restaurant-1", result.getContent().get(0).getName());
+        Assertions.assertEquals("address-1", result.getContent().get(0).getAddress());
+        Assertions.assertEquals(1.1, result.getContent().get(0).getX());
+        Assertions.assertEquals(1.1, result.getContent().get(0).getY());
+        Assertions.assertEquals(100, result.getContent().get(0).getDistance());
         Assertions.assertEquals(3, result.getContent().get(0).getMenus().size());
+
+        Assertions.assertEquals("rid-2", result.getContent().get(1).getId());
+        Assertions.assertEquals("restaurant-2", result.getContent().get(1).getName());
+        Assertions.assertEquals("address-2", result.getContent().get(1).getAddress());
+        Assertions.assertEquals(2.2, result.getContent().get(1).getX());
+        Assertions.assertEquals(2.2, result.getContent().get(1).getY());
+        Assertions.assertEquals(200, result.getContent().get(1).getDistance());
         Assertions.assertEquals(3, result.getContent().get(1).getMenus().size());
+
+        Assertions.assertEquals("rid-3", result.getContent().get(2).getId());
+        Assertions.assertEquals("restaurant-3", result.getContent().get(2).getName());
+        Assertions.assertEquals("address-3", result.getContent().get(2).getAddress());
+        Assertions.assertEquals(3.3, result.getContent().get(2).getX());
+        Assertions.assertEquals(3.3, result.getContent().get(2).getY());
+        Assertions.assertEquals(300, result.getContent().get(2).getDistance());
         Assertions.assertEquals(3, result.getContent().get(2).getMenus().size());
     }
 
