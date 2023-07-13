@@ -5,11 +5,11 @@ import java.time.LocalDateTime
 data class ProxyRestaurant(
         val proxyId: String,
         val proxyName: String,
-        val kakaoPlaceId: String,
-        var scrapedAt: LocalDateTime,
-        var menus: ArrayList<ProxyMenu> = ArrayList()
+        val proxyKakaoPlaceId: String,
+        var proxyScrapedAt: LocalDateTime,
+        var proxyMenus: ArrayList<ProxyMenu> = ArrayList()
 ) {
-    fun addMenu(menu: ProxyMenu) {
-        this.menus.add(menu)
+    fun addProxyMenu(proxyMenu: ProxyMenu) {
+        this.proxyMenus.add(proxyMenu)
     }
 }

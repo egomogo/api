@@ -40,7 +40,7 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
         val result = HashMap<String, ProxyRestaurant>()
 
         for (restaurant in data) {
-            driver.get("https://place.map.kakao.com/${restaurant.kakaoPlaceId}")
+            driver.get("https://place.map.kakao.com/${restaurant.proxyKakaoPlaceId}")
             sleep(2000)
 
             val titleOfWeb : String = driver.findElement(By.id("kakaoContent"))
@@ -63,10 +63,10 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                     } catch (e : org.openqa.selenium.NoSuchElementException) {
                         "가격정보 없음"
                     }
-                    restaurant.addMenu(ProxyMenu(name=menuName, price=price))
+                    restaurant.addProxyMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
-                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.menus.size}.")
+                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.proxyMenus.size}.")
             } catch (e : org.openqa.selenium.NoSuchElementException) {
                 log.error("Occurred NoSuchElementException during scraped restaurant. name -> ${restaurant.proxyName}")
             }
