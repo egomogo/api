@@ -1,5 +1,7 @@
 package com.egomogo.api.service.dto.restaurant;
 
+import com.egomogo.domain.dto.MenuDto;
+import com.egomogo.domain.dto.RestaurantDto;
 import com.egomogo.domain.entity.Coordinate;
 import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
@@ -26,18 +28,18 @@ public class GetRestaurantInfoResponse {
     private List<MenuResponse> menus;
     private List<CategoryResponse> categories;
 
-    public static GetRestaurantInfoResponse of(Restaurant restaurant) {
+    public static GetRestaurantInfoResponse of(RestaurantDto restaurantDto) {
 
 
         return GetRestaurantInfoResponse.builder()
-                .id(restaurant.getId())
-                .name(restaurant.getName())
-                .address(restaurant.getAddress())
-                .coords(CoordinateResponse.of(restaurant.getCoordinate()))
-                .kakaoShopId(restaurant.getKakaoPlaceId())
-                .menus(CollectionUtils.isEmpty(restaurant.getMenus()) ?
-                        null : restaurant.getMenus().stream().map(MenuResponse::of).toList())
-                .categories(restaurant.getCategories().stream().map(CategoryResponse::of).toList())
+                .id(restaurantDto.getId())
+                .name(restaurantDto.getName())
+                .address(restaurantDto.getAddress())
+                .coords(CoordinateResponse.of(restaurantDto.getX(), restaurantDto.getY()))
+                .kakaoShopId(restaurantDto.getKakaoPlaceId())
+                .menus(CollectionUtils.isEmpty(restaurantDto.getMenus()) ?
+                        null : restaurantDto.getMenus().stream().map(MenuResponse::of).toList())
+                .categories(restaurantDto.getCategories().stream().map(CategoryResponse::of).toList())
                 .build();
     }
 
@@ -49,8 +51,8 @@ public class GetRestaurantInfoResponse {
         private String name;
         private String price;
 
-        public static MenuResponse of(Menu menu) {
-            return MenuResponse.builder().name(menu.getName()).price(menu.getPrice()).build();
+        public static MenuResponse of(MenuDto menuDto) {
+            return MenuResponse.builder().name(menuDto.getName()).price(menuDto.getPrice()).build();
         }
     }
 
@@ -62,8 +64,8 @@ public class GetRestaurantInfoResponse {
         private double x;
         private double y;
 
-        public static CoordinateResponse of(Coordinate coordinate) {
-            return CoordinateResponse.builder().x(coordinate.getX()).y(coordinate.getY()).build();
+        public static CoordinateResponse of(double x, double y) {
+            return CoordinateResponse.builder().x(x).y(y).build();
         }
     }
 

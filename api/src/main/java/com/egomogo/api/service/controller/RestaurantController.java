@@ -43,8 +43,7 @@ public class RestaurantController {
     @GetMapping("/restaurants/{restaurantId}")
     @ResponseStatus(HttpStatus.OK)
     public GetRestaurantInfoResponse getRestaurantInfo(@PathVariable String restaurantId){
-
-        return restaurantService.getRestaurantInfo(restaurantId);
+        return GetRestaurantInfoResponse.of(restaurantService.getRestaurantInfo(restaurantId));
     }
 
 }

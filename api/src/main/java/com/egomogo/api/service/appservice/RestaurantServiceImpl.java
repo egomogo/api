@@ -11,6 +11,7 @@ import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
 import com.egomogo.domain.dto.MenuDto;
+import com.egomogo.domain.dto.RestaurantDto;
 import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
 import com.egomogo.domain.repository.MenuRepository;
@@ -88,10 +89,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public GetRestaurantInfoResponse getRestaurantInfo(String restaurantId) {
-        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND));
-        GetRestaurantInfoResponse getRestaurantInfoResponse = GetRestaurantInfoResponse.of(restaurant);
-        return null;
+    public RestaurantDto getRestaurantInfo(String restaurantId) {
+        return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
     }
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {
