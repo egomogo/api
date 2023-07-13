@@ -1,5 +1,6 @@
 package com.egomogo.scraper.scrap.kakao.menu
 
+import com.egomogo.domain.util.SeoulDateTime
 import com.egomogo.scraper.scrap.Scraper
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyMenu
 import com.egomogo.scraper.scrap.kakao.proxy.ProxyRestaurant
@@ -71,6 +72,7 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                 log.error("Occurred NoSuchElementException during scraped restaurant. name -> ${proxyRestaurant.proxyName}")
             }
 
+            proxyRestaurant.proxyScrapedAt = SeoulDateTime.now()
 
             result[proxyRestaurant.proxyId] = proxyRestaurant
 
