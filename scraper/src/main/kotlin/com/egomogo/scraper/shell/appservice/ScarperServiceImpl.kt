@@ -33,13 +33,13 @@ class ScarperServiceImpl(
         return saveMenus(scrapedResult)
     }
 
-    fun fetchRestaurantsNullMenus() : List<ProxyRestaurant> {
+    private fun fetchRestaurantsNullMenus() : List<ProxyRestaurant> {
         val restaurants : List<Restaurant> = restaurantRepository.findByMenusIsNull()
         log.info("fetch restaurant size: ${restaurants.size}.")
         return restaurants.map { convertEntityToProxy(it) }
     }
 
-    fun saveMenus(scrapedResult: Map<String, ProxyRestaurant>): Int {
+    private fun saveMenus(scrapedResult: Map<String, ProxyRestaurant>): Int {
         val restaurants = restaurantRepository.findAllById(scrapedResult.keys)
         log.info("start save menus ${restaurants.size} restaurants.")
 
@@ -55,6 +55,7 @@ class ScarperServiceImpl(
                 return@forEach
             }
             proxyRestaurant.proxyMenus.forEach { pMenu -> it.addMenu(convertProxyToEntity(pMenu)) }
+            it.scrapedAt = proxyRestaurant.proxyScrapedAt
             count.getAndIncrement()
         }
 

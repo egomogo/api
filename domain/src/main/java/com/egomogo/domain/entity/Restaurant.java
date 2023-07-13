@@ -65,4 +65,8 @@ public class Restaurant extends BaseAuditEntity {
         this.menus.add(menu);
         menu.associate(this);
     }
+
+    public void setScrapedAt(LocalDateTime scrapedAt) {
+        this.scrapedAt = scrapedAt;
+    }
 }
