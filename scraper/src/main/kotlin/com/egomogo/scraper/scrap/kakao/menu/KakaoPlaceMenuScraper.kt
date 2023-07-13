@@ -39,16 +39,16 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
 
         val result = HashMap<String, ProxyRestaurant>()
 
-        for (restaurant in data) {
-            driver.get("https://place.map.kakao.com/${restaurant.proxyKakaoPlaceId}")
+        for (proxyRestaurant in data) {
+            driver.get("https://place.map.kakao.com/${proxyRestaurant.proxyKakaoPlaceId}")
             sleep(2000)
 
             val titleOfWeb : String = driver.findElement(By.id("kakaoContent"))
                     .findElement(By.className("tit_location")).text
 
-            if (!isMatchRestaurant(restaurant.proxyName, titleOfWeb)) {
+            if (!isMatchRestaurant(proxyRestaurant.proxyName, titleOfWeb)) {
                 log.error("Mismatch between Real restaurant name and Scraped restaurant name. " +
-                        "Real name: ${restaurant.proxyName}, Scraped name: $titleOfWeb")
+                        "Real name: ${proxyRestaurant.proxyName}, Scraped name: $titleOfWeb")
                 continue
             }
 
@@ -63,14 +63,16 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                     } catch (e : org.openqa.selenium.NoSuchElementException) {
                         "가격정보 없음"
                     }
-                    restaurant.addProxyMenu(ProxyMenu(name=menuName, price=price))
+                    proxyRestaurant.addProxyMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
-                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.proxyMenus.size}.")
+                log.info("Success scraped Restaurant. Restaurant Name: ${proxyRestaurant.proxyName}, menu size: ${proxyRestaurant.proxyMenus.size}.")
             } catch (e : org.openqa.selenium.NoSuchElementException) {
-                log.error("Occurred NoSuchElementException during scraped restaurant. name -> ${restaurant.proxyName}")
+                log.error("Occurred NoSuchElementException during scraped restaurant. name -> ${proxyRestaurant.proxyName}")
             }
-            result[restaurant.proxyId] = restaurant
+
+
+            result[proxyRestaurant.proxyId] = proxyRestaurant
 
             sleep(500)
         }
