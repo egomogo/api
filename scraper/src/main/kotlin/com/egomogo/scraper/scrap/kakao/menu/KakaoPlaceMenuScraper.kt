@@ -29,9 +29,9 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
         val options = ChromeOptions()
         options.setPageLoadStrategy(PageLoadStrategy.NORMAL)
         options.addArguments("--remote-allow-origins=*")
-        options.addArguments("--disable-popup-blocking");       //팝업안띄움
-//        options.addArguments("headless");                       //브라우저 안띄움
-//        options.addArguments("--blink-settings=imagesEnabled=false") //이미지 다운 안받음
+        options.addArguments("--disable-popup-blocking")                //팝업안띄움
+        options.addArguments("headless")                                //브라우저 안띄움
+        options.addArguments("--blink-settings=imagesEnabled=false")    //이미지 다운 안받음
         options.addArguments("disable-default-apps")
 
         val driver = ChromeDriver(options)
@@ -56,17 +56,23 @@ class KakaoPlaceMenuScraper : Scraper<String, ProxyRestaurant> {
                 val menusOfRestaurant : List<WebElement> = driver.findElements(By.className("info_menu"))
                 menusOfRestaurant.forEach{
                     val menuName = it.findElement(By.className("loss_word")).text
-                    val price = it.findElement(By.className("price_menu")).text
+                    if (menuName == null || menuName.isBlank()) return@forEach
+
+                    val price: String = try {
+                        it.findElement(By.className("price_menu")).text
+                    } catch (e : org.openqa.selenium.NoSuchElementException) {
+                        "가격정보 없음"
+                    }
                     restaurant.addMenu(ProxyMenu(name=menuName, price=price))
                     sleep(100)
                 }
                 result[restaurant.proxyId] = restaurant
-                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}")
-            } catch (e : NoSuchElementException) {
+                log.info("Success scraped Restaurant. Restaurant Name: ${restaurant.proxyName}, menu size: ${restaurant.menus.size}.")
+            } catch (e : org.openqa.selenium.NoSuchElementException) {
                 result[restaurant.proxyId] = restaurant
             }
 
-            sleep(1000)
+            sleep(500)
         }
 
         sleep(1000)
