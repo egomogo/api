@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, String> {
@@ -27,8 +28,10 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
     @Query(
             value = "SELECT *, " +
                     "ST_Distance_Sphere(POINT(:userX, :userY), POINT(r.x, r.y)) as distance " +
-                    "FROM restaurant as r, restaurant_categories as rc " +
-                    "WHERE rc.categories IN (:categories) " +
+                    "FROM restaurant as r " +
+                    "INNER JOIN " +
+                        "(SELECT distinct restaurant_id FROM restaurant_categories WHERE categories IN (:categories)) as rc " +
+                    "ON r.id = rc.restaurant_id " +
                     "HAVING distance <= :distanceLimit " +
                     "ORDER BY RAND(:seed)",
             nativeQuery = true
@@ -38,4 +41,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
   
     List<Restaurant> findByMenusIsNull();
 
+    Optional<Restaurant> findByName(String name);
 }

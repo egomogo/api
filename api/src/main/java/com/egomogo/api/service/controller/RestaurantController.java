@@ -42,8 +42,8 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/{restaurantId}")
     @ResponseStatus(HttpStatus.OK)
-    public GetRestaurantInfoResponse getRestaurantInfo(@PathVariable String restaurantId){
-        return GetRestaurantInfoResponse.of(restaurantService.getRestaurantInfo(restaurantId));
+    public GetRestaurantInfoResponse.Response getRestaurantInfoById(@PathVariable String restaurantId){
+        return GetRestaurantInfoResponse.Response.fromDto(restaurantService.getRestaurantInfoById(restaurantId));
     }
 
 }

@@ -9,6 +9,8 @@ CREATE TABLE `restaurant` (
     x float(53) default 0.0 not null ,
     y float(53) default 0.0 not null ,
     kakao_place_id varchar(50) not null ,
+    api_called_at datetime ,
+    scraped_at datetime ,
     created_at datetime not null ,
     updated_at datetime
 );

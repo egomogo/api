@@ -89,7 +89,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantDto getRestaurantInfo(String restaurantId) {
+    public RestaurantDto getRestaurantInfoById(String restaurantId) {
+
         return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
     }
 

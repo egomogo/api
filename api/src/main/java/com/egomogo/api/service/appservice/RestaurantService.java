@@ -1,6 +1,5 @@
 package com.egomogo.api.service.appservice;
 
-import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.RestaurantDto;
@@ -39,5 +38,5 @@ public interface RestaurantService {
                                                        Integer distanceLimit,
                                                        Pageable pageable);
 
-    RestaurantDto getRestaurantInfo(String restaurantId);
+    RestaurantDto getRestaurantInfoById(String restaurantId);
 }

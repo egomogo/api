@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,12 @@ public class Restaurant extends BaseAuditEntity {
     @Column(name = "kakao_place_id", nullable = false)
     private String kakaoPlaceId;
 
+    @Column(name = "api_called_at")
+    private LocalDateTime apiCalledAt;
+
+    @Column(name = "scarped_at")
+    private LocalDateTime scrapedAt;
+
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menus = new ArrayList<>();
 
@@ -57,5 +64,9 @@ public class Restaurant extends BaseAuditEntity {
     public void addMenu(Menu menu) {
         this.menus.add(menu);
         menu.associate(this);
+    }
+
+    public void setScrapedAt(LocalDateTime scrapedAt) {
+        this.scrapedAt = scrapedAt;
     }
 }
