@@ -1,7 +1,12 @@
 package com.egomogo.domain.dto;
 
+import lombok.*;
+
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class IRestaurantDistanceDtoImpl implements IRestaurantDistanceDto {
 
     private final String id;
