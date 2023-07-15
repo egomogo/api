@@ -19,6 +19,7 @@ import com.egomogo.domain.repository.RestaurantRepository;
 import com.egomogo.domain.type.CategoryType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+//    @Transactional(readOnly = true)
+//    @Cacheable(value = "Restaurant", key = "#restaurantId", cacheManager = "contentCacheManager")
     public RestaurantDto getRestaurantInfoById(String restaurantId) {
         return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
     }
