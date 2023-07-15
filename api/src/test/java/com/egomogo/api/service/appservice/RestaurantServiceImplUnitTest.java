@@ -6,10 +6,12 @@ import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.RestaurantDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
+import com.egomogo.domain.entity.Coordinate;
 import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
 import com.egomogo.domain.repository.MenuRepository;
 import com.egomogo.domain.repository.RestaurantRepository;
+import com.egomogo.domain.type.CategoryType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -72,15 +74,17 @@ public class RestaurantServiceImplUnitTest {
     @Test
     void getRestaurantInfoByIdTest() {
         //given
-        Restaurant testRestaurant = Restaurant.create("name", "address", 10.1, 12.2, "123");
-        testRestaurant.addMenu(Menu.create("testMenu", "10000"));
+        Restaurant testRestaurant =
+                Restaurant.builder().id("testId").name("name").address("address").coordinate(new Coordinate(10.1, 12.2)).kakaoPlaceId("123")
+                        .menus(List.of(Menu.create("testMenu", "10000"))).categories(List.of(CategoryType.KOREAN)).build();
         given(restaurantRepository.findById(anyString())).willReturn( Optional.of(testRestaurant));
 
         //when
-        RestaurantDto result = restaurantService.getRestaurantInfoById("test");
+        RestaurantDto result = restaurantService.getRestaurantInfoById("testId");
 
         //then
         Assertions.assertNotNull(result);
+        Assertions.assertEquals("testId", result.getId());
         Assertions.assertEquals("name", result.getName());
         Assertions.assertEquals("address",result.getAddress());
         Assertions.assertEquals(10.1,result.getX());
@@ -89,6 +93,8 @@ public class RestaurantServiceImplUnitTest {
 
         Assertions.assertEquals("testMenu",result.getMenus().get(0).getName());
         Assertions.assertEquals("10000",result.getMenus().get(0).getPrice());
+
+        Assertions.assertEquals(CategoryType.KOREAN,result.getCategories().get(0));
 
     }
 

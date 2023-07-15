@@ -23,7 +23,6 @@ public class GetRestaurantInfoResponse {
 
         public static Response fromDto(RestaurantDto restaurantDto) {
 
-
             return Response.builder()
                     .id(restaurantDto.getId())
                     .name(restaurantDto.getName())
@@ -62,19 +61,4 @@ public class GetRestaurantInfoResponse {
             }
         }
     }
-
-
-
-//    @Getter
-//    @NoArgsConstructor
-//    @AllArgsConstructor
-//    @Builder
-//    private static class CategoryResponse {
-//
-//        String categoryName;
-//
-//        public static CategoryResponse fromDto(CategoryType categoryType) {
-//            return CategoryResponse.builder().categoryName(categoryType.name()).build();
-//        }
-//    }
 }
