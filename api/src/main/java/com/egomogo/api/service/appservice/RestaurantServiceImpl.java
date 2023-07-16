@@ -3,12 +3,15 @@ package com.egomogo.api.service.appservice;
 import com.egomogo.api.global.adapter.webclient.KakaoWebClientComponent;
 import com.egomogo.api.global.adapter.webclient.dto.CoordinateDto;
 import com.egomogo.api.global.exception.impl.BadRequest;
+import com.egomogo.api.global.exception.impl.NotFound;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
+import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
 import com.egomogo.domain.dto.MenuDto;
+import com.egomogo.domain.dto.RestaurantDto;
 import com.egomogo.domain.entity.Menu;
 import com.egomogo.domain.entity.Restaurant;
 import com.egomogo.domain.repository.MenuRepository;
@@ -16,6 +19,7 @@ import com.egomogo.domain.repository.RestaurantRepository;
 import com.egomogo.domain.type.CategoryType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -83,6 +87,13 @@ public class RestaurantServiceImpl implements RestaurantService {
             List<Menu> menus = menuRepository.findTop3ByRestaurantId(dtoResult.getId());
             return dtoResult.setMenus(menus.stream().map(MenuDto::fromEntity).toList());
         });
+    }
+
+    @Override
+//    @Transactional(readOnly = true)
+//    @Cacheable(value = "Restaurant", key = "#restaurantId", cacheManager = "contentCacheManager")
+    public RestaurantDto getRestaurantInfoById(String restaurantId) {
+        return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
     }
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {
