@@ -68,7 +68,8 @@ public class CategoryTree {
                         new CategoryNode(CategoryType.STEAK_RIB),
                         new CategoryNode(CategoryType.MEXICAN)
                     ),
-                new CategoryNode(CategoryType.SALAD)
+                new CategoryNode(CategoryType.SALAD),
+                new CategoryNode(CategoryType.OTHER)
             )
         ;
 
