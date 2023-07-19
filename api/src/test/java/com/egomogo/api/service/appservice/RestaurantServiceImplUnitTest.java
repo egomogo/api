@@ -181,23 +181,23 @@ public class RestaurantServiceImplUnitTest {
                                 .id("rid-1")
                                 .name("restaurant-1")
                                 .address("address-1")
-                                .x(127.123132)
-                                .y(37.123123)
-                                .distance(500).build(),
+                                .x(1.1)
+                                .y(1.1)
+                                .distance(100).build(),
                         IRestaurantDistanceDtoImpl.builder()
                                 .id("rid-2")
                                 .name("restaurant-2")
                                 .address("address-2")
-                                .x(127.123132)
-                                .y(37.123123)
-                                .distance(500).build(),
+                                .x(2.2)
+                                .y(2.2)
+                                .distance(200).build(),
                         IRestaurantDistanceDtoImpl.builder()
                                 .id("rid-3")
                                 .name("restaurant-3")
                                 .address("address-3")
-                                .x(127.123132)
-                                .y(37.123123)
-                                .distance(500).build())));
+                                .x(3.3)
+                                .y(3.3)
+                                .distance(300).build())));
         given(menuRepository.findTop3ByRestaurantId(anyString()))
                 .willReturn(List.of(
                         Menu.builder()

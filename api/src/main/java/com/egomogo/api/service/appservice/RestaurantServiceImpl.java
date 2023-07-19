@@ -6,7 +6,6 @@ import com.egomogo.api.global.exception.impl.BadRequest;
 import com.egomogo.api.global.exception.impl.NotFound;
 import com.egomogo.api.global.exception.model.ErrorCode;
 import com.egomogo.api.global.util.ValidUtils;
-import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import com.egomogo.domain.dto.IRestaurantDistanceDto;
 import com.egomogo.domain.dto.IRestaurantDistanceDtoImpl;
@@ -19,7 +18,6 @@ import com.egomogo.domain.repository.RestaurantRepository;
 import com.egomogo.domain.type.CategoryType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -90,8 +88,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-//    @Transactional(readOnly = true)
-//    @Cacheable(value = "Restaurant", key = "#restaurantId", cacheManager = "contentCacheManager")
+    @Transactional(readOnly = true)
     public RestaurantDto getRestaurantInfoById(String restaurantId) {
         return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
     }

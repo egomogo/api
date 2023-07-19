@@ -5,6 +5,7 @@ import com.egomogo.api.service.dto.restaurant.GetRandomRestaurants;
 import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
 import com.egomogo.api.service.dto.restaurant.SaveRestaurantJson;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -42,6 +43,7 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/{restaurantId}")
     @ResponseStatus(HttpStatus.OK)
+    @Cacheable(key = "#restaurantId", value = "restaurant", cacheManager = "contentCacheManager")
     public GetRestaurantInfoResponse.Response getRestaurantInfoById(@PathVariable String restaurantId){
         return GetRestaurantInfoResponse.Response.fromDto(restaurantService.getRestaurantInfoById(restaurantId));
     }
