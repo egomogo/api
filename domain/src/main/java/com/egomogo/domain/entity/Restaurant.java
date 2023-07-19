@@ -6,8 +6,6 @@ import com.egomogo.domain.util.Generator;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.Fetch;
-import org.springframework.data.util.Lazy;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
