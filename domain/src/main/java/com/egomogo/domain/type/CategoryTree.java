@@ -43,7 +43,8 @@ public class CategoryTree {
                         new CategoryNode(CategoryType.PORRIDGE),
                         new CategoryNode(CategoryType.KOREAN_STEW),
                         new CategoryNode(CategoryType.DRIVERS),
-                        new CategoryNode(CategoryType.LUNCH_BOX)
+                        new CategoryNode(CategoryType.LUNCH_BOX),
+                        new CategoryNode(CategoryType.RAW_FISH)
                     ),
                 new CategoryNode(CategoryType.JAPANESE)
                     .setChildren(
@@ -94,7 +95,6 @@ public class CategoryTree {
                     ),
                 new CategoryNode(CategoryType.SALAD),
                 new CategoryNode(CategoryType.OTHER)
-            )
-        ;
+            );
     }
 }
