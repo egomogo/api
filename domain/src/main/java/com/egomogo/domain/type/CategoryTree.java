@@ -3,12 +3,36 @@ package com.egomogo.domain.type;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.util.*;
+
 @Component
 @Getter
 public class CategoryTree {
-    private final CategoryNode root = new CategoryNode(CategoryType.ROOT);
+    private final CategoryNode root;
+    private final CategoryType[] nodes;
+    private final List<int[]> edges;
 
     public CategoryTree() {
+        root = new CategoryNode(CategoryType.ROOT);
+        nodes = CategoryType.values().clone();
+        edges = new ArrayList<>();
+        initTree();
+        bfs();
+    }
+
+    private void bfs() {
+        Queue<CategoryNode> q = new LinkedList<>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            CategoryNode parent = q.poll();
+            for (CategoryNode child : parent.getChildren()) {
+                q.offer(child);
+                edges.add(new int[]{parent.getValue().ordinal(), child.getValue().ordinal()});
+            }
+        }
+    }
+
+    private void initTree() {
         root
             .setChildren(
                 new CategoryNode(CategoryType.KOREAN)
@@ -72,6 +96,5 @@ public class CategoryTree {
                 new CategoryNode(CategoryType.OTHER)
             )
         ;
-
     }
 }
