@@ -16,11 +16,11 @@ public class GetAllCategoryResponse {
         private List<Category>  nodes;
         private List<int[]> edges;
 
-        public static Response fromDto() {
-            CategoryTree categoryTree = new CategoryTree();
-            return Response.builder().nodes(Arrays.stream(categoryTree.getNodes()).map(Category::fromDto).toList())
-                    .edges(categoryTree.getEdges())
-                    .build();
+        public static Response from(CategoryTree categoryTree) {
+            return Response.builder()
+                .nodes(Arrays.stream(categoryTree.getNodes()).map(Category::from).toList())
+                .edges(categoryTree.getEdges())
+                .build();
         }
         @Getter
         @NoArgsConstructor
