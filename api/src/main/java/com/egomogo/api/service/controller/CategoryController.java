@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class CategoryController {
+    private final CategoryTree tree;
 
     @GetMapping("/restaurants/categories")
     @ResponseStatus(HttpStatus.OK)
     public GetAllCategoryResponse.Response getAllCategory(){
-        return GetAllCategoryResponse.Response.fromDto();
+        return GetAllCategoryResponse.Response.from(tree);
     }
 }
