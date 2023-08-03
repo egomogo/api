@@ -30,8 +30,8 @@ public class GetAllCategoryResponse {
             String code;
             String name;
 
-            public static Category fromDto(CategoryType node) {
-                return Category.builder().code(node.toString()).name(node.getName()).build();
+            public static Category from(CategoryType categoryType) {
+                return Category.builder().code(categoryType.name()).name(categoryType.getKoreanName()).build();
             }
         }
     }
