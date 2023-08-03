@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public enum CategoryType {
     ROOT("루트"),
     KOREAN("한식"),
-        MEAT("고기"), SEA_FOOD("해산물"), NODDLE("국수"), PORRIDGE("죽"), KOREAN_STEW("국,찌개"), DRIVERS("드라이버"), LUNCH_BOX("도시락"), RAW_FISH("회"),
+        MEAT("고기"), SEA_FOOD("해산물"), NODDLE("국수"), PORRIDGE("죽"), KOREAN_STEW("국,찌개"), DRIVERS("기사식당"), LUNCH_BOX("도시락"), RAW_FISH("회"),
     JAPANESE("일식"),
         TUNA_SASHIMI("참치회"), SUSHI("초밥"), PORK_CUTLET_UDON("돈가스,우동"), RAMEN("라멘"), SHABU_SHABU("샤브샤브"),
     ALCOHOL("술집"),
@@ -33,7 +33,7 @@ public enum CategoryType {
     SALAD("샐러드"),
     OTHER("기타");
 
-    private final String name;
+    private final String koreanName;
 
     public static Set<CategoryType> setOf(List<String> categories) {
         return categories.stream()

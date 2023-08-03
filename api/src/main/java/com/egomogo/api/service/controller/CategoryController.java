@@ -2,6 +2,7 @@ package com.egomogo.api.service.controller;
 
 import com.egomogo.api.service.dto.restaurant.GetAllCategoryResponse;
 import com.egomogo.api.service.dto.restaurant.GetRestaurantInfoResponse;
+import com.egomogo.domain.type.CategoryTree;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
