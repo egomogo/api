@@ -74,7 +74,5 @@ public class RestaurantControllerTest {
                 .andExpect(jsonPath("$.categories[0]").value("KOREAN"))
                 .andDo(print());
 
-
-
     }
 }

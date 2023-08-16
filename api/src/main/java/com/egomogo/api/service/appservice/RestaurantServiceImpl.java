@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -91,6 +92,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Transactional(readOnly = true)
     public RestaurantDto getRestaurantInfoById(String restaurantId) {
         return RestaurantDto.fromEntity(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFound(ErrorCode.NOT_FOUND)));
+    }
+
+    @Override
+    public List<RestaurantDto> GetRestaurantWishesInfoResponse(List<String> ids) {
+
+        return restaurantRepository.findByIdIn(ids).stream().map(RestaurantDto::fromEntity).toList();
+
     }
 
     private void validateSaveRestaurantsFromJson(List<SaveRestaurantJson.Request> request) {

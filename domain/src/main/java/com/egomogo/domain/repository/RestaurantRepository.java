@@ -42,4 +42,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, String> 
     List<Restaurant> findByMenusIsNull();
 
     Optional<Restaurant> findByName(String name);
+
+    List<Restaurant> findByIdIn(List<String> ids);
 }
