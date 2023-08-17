@@ -51,12 +51,9 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/wishes")
     @ResponseStatus(HttpStatus.OK)
-    public GetRestaurantWishesInfoResponse.Response GetRestaurantWishesInfoResponse(@RequestParam("ids") List<String> Ids){
-        System.out.println("124325346786765413");
-        for(String id : Ids) {
-            System.out.println(id);
-        }
-        return GetRestaurantWishesInfoResponse.Response.fromDto(restaurantService.GetRestaurantWishesInfoResponse(Ids));
+    public GetRestaurantWishesInfoResponse.Response getRestaurantWishesInfoById(@RequestParam("ids") List<String> Ids){
+
+        return GetRestaurantWishesInfoResponse.Response.fromDto(restaurantService.getRestaurantWishesInfoById(Ids));
     }
 
 }

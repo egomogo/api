@@ -40,5 +40,5 @@ public interface RestaurantService {
 
     RestaurantDto getRestaurantInfoById(String restaurantId);
 
-    List<RestaurantDto> GetRestaurantWishesInfoResponse(List<String> ids);
+    List<RestaurantDto> getRestaurantWishesInfoById(List<String> ids);
 }

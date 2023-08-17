@@ -95,7 +95,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantDto> GetRestaurantWishesInfoResponse(List<String> ids) {
+    public List<RestaurantDto> getRestaurantWishesInfoById(List<String> ids) {
 
         return restaurantRepository.findByIdIn(ids).stream().map(RestaurantDto::fromEntity).toList();
 
