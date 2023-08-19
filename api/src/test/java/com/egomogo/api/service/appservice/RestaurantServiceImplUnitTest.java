@@ -23,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -98,6 +99,55 @@ public class RestaurantServiceImplUnitTest {
 
     }
 
+    @Test
+    void getRestaurantWishesInfoByIdTest() {
+        //given
+        Restaurant testRestaurant1 =
+                Restaurant.builder().id("testId1").name("name1").address("address1").coordinate(new Coordinate(10.1, 12.2)).kakaoPlaceId("1")
+                        .menus(List.of(Menu.create("testMenu1", "10000"))).categories(List.of(CategoryType.KOREAN)).build();
+
+        Restaurant testRestaurant2 =
+                Restaurant.builder().id("testId2").name("name2").address("address2").coordinate(new Coordinate(10.1, 12.2)).kakaoPlaceId("2")
+                        .menus(List.of(Menu.create("testMenu2", "10000"))).categories(List.of(CategoryType.KOREAN)).build();
+
+        List<Restaurant> mockRestaurants = new ArrayList<>();
+        mockRestaurants.add(testRestaurant1);
+        mockRestaurants.add(testRestaurant2);
+
+        given(restaurantRepository.findByIdIn(anyList())).willReturn( mockRestaurants);
+
+        //when
+        List<String> testIds = new ArrayList<>();
+        testIds.add("testId");
+        List<RestaurantDto> result = restaurantService.getRestaurantWishesInfoById(testIds);
+
+        //then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("testId1", result.get(0).getId());
+        Assertions.assertEquals("name1", result.get(0).getName());
+        Assertions.assertEquals("address1",result.get(0).getAddress());
+        Assertions.assertEquals(10.1,result.get(0).getX());
+        Assertions.assertEquals(12.2,result.get(0).getY());
+        Assertions.assertEquals("1",result.get(0).getKakaoPlaceId());
+
+        Assertions.assertEquals("testMenu1",result.get(0).getMenus().get(0).getName());
+        Assertions.assertEquals("10000",result.get(0).getMenus().get(0).getPrice());
+
+        Assertions.assertEquals(CategoryType.KOREAN,result.get(0).getCategories().get(0));
+
+        Assertions.assertEquals("testId2", result.get(1).getId());
+        Assertions.assertEquals("name2", result.get(1).getName());
+        Assertions.assertEquals("address2",result.get(1).getAddress());
+        Assertions.assertEquals(10.1,result.get(1).getX());
+        Assertions.assertEquals(12.2,result.get(1).getY());
+        Assertions.assertEquals("2",result.get(1).getKakaoPlaceId());
+
+        Assertions.assertEquals("testMenu2",result.get(1).getMenus().get(0).getName());
+        Assertions.assertEquals("10000",result.get(1).getMenus().get(0).getPrice());
+
+        Assertions.assertEquals(CategoryType.KOREAN,result.get(1).getCategories().get(0));
+
+    }
 
     @DisplayName("랜덤 매장 조회 - 전체 카테고리 조회")
     void test_getRandomRestaurants_allCategories() {

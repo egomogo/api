@@ -39,4 +39,6 @@ public interface RestaurantService {
                                                        Pageable pageable);
 
     RestaurantDto getRestaurantInfoById(String restaurantId);
+
+    List<RestaurantDto> getRestaurantWishesInfoById(List<String> ids);
 }
