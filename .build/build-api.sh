@@ -3,7 +3,7 @@ echo "Gradle build...."
 echo "Gradle build fin."
 
 echo "Docker build...."
-docker build -f .docker/Dockerfile-api -t hseungho/egomogo-api:$1 .
+docker build -f .docker/Dockerfile-api -t hseungho/egomogo-api:$1 . --platform=linux/amd64
 echo "Docker build fin."
 
 echo "Docker push...."
